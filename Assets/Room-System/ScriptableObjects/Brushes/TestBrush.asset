@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee140d5d3e13c6d0c81386429be0ee57, type: 3}
+  m_Name: TestBrush
+  m_EditorClassIdentifier: 
+  m_Cells:
+  - m_GameObject: {fileID: 1003347435863157632, guid: 47a995dfcc14d8d629ad384776e7ac10,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+  - m_GameObject: {fileID: 8494700079578138483, guid: 8a577654001993b20ac9902c69cd6dbf,
+      type: 3}
+    m_Offset: {x: 0, y: -0.5, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+  - m_GameObject: {fileID: 30749760168778142, guid: d6bf25edc9cde6e27b2e47fa139b66ab,
+      type: 3}
+    m_Offset: {x: 0, y: 0.5, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+  - m_GameObject: {fileID: 30749760168778142, guid: d6bf25edc9cde6e27b2e47fa139b66ab,
+      type: 3}
+    m_Offset: {x: 0, y: 0.5, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+  - m_GameObject: {fileID: 30749760168778142, guid: d6bf25edc9cde6e27b2e47fa139b66ab,
+      type: 3}
+    m_Offset: {x: 0, y: 0.5, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Pivot: {x: 0, y: 0, z: 0}
+  m_CanChangeZPosition: 0
+  hiddenGridLayout:
+    cellSize: {x: 1, y: 1, z: 1}
+    cellGap: {x: 0, y: 0, z: 0}
+    cellLayout: 0
+    cellSwizzle: 0
+  hiddenGrid: {fileID: 0}
+  m_Anchor: {x: 0.5, y: 0.5, z: 0.5}
+  replaceTiles: 0
