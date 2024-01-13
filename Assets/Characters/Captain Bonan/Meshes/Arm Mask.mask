@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!319 &31900000
+AvatarMask:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Arm Mask
+  m_Mask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+  m_Elements:
+  - m_Path: 
+    m_Weight: 1
+  - m_Path: Controls
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipL_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipL_Grp/HipL_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipL_Grp/HipL_Ctrl/KneeL_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipL_Grp/HipL_Ctrl/KneeL_Grp/KneeL_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipL_Grp/HipL_Ctrl/KneeL_Grp/KneeL_Ctrl/AnkleL_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipL_Grp/HipL_Ctrl/KneeL_Grp/KneeL_Ctrl/AnkleL_Grp/KneeL_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipR_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipR_Grp/HipR_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipR_Grp/HipR_Ctrl/KneeR_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipR_Grp/HipR_Ctrl/KneeR_Grp/KneeR_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipR_Grp/HipR_Ctrl/KneeR_Grp/KneeR_Ctrl/AnkleR_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/Pelvis_Grp/Pelvis_Ctrl/HipR_Grp/HipR_Ctrl/KneeR_Grp/KneeR_Ctrl/AnkleR_Grp/KneeR_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl/ShoulderL_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl/ShoulderL_Grp/ShoulderL_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl/ShoulderL_Grp/ShoulderL_Ctrl/ElbowL_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl/ShoulderL_Grp/ShoulderL_Ctrl/ElbowL_Grp/ElbowL_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl/ShoulderR_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl/ShoulderR_Grp/ShoulderR_Ctrl
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl/ShoulderR_Grp/ShoulderR_Ctrl/ElbowR_Grp
+    m_Weight: 0
+  - m_Path: Controls/Root_Ctrl/COG_Grp/COG_Ctrl/SpineBase_Grp/SpineBase_Ctrl/Sternum_Grp/Sternum_Ctrl/ShoulderR_Grp/ShoulderR_Ctrl/ElbowR_Grp/ElbowR_Ctrl
+    m_Weight: 0
+  - m_Path: Mesh
+    m_Weight: 0
+  - m_Path: Mesh/Bananaman
+    m_Weight: 0
+  - m_Path: Skeleton
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_L
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_L/Knee_L
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_L/Knee_L/Ankle_L
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_L/Knee_L/Ankle_L/Heel_L
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_L/Knee_L/Ankle_L/Heel_L/Toe_L
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_R
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_R/Knee_R
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_R/Knee_R/Ankle_R
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_R/Knee_R/Ankle_R/Heel_R
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Pelvis/Hip_R/Knee_R/Ankle_R/Heel_R/Toe_R
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Spine_Base
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Spine_Base/Sternum
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Spine_Base/Sternum/Shoulder_L
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Spine_Base/Sternum/Shoulder_L/Elbow_L
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Spine_Base/Sternum/Shoulder_L/Elbow_L/Object_L
+    m_Weight: 0
+  - m_Path: Skeleton/ROOT/COG/Spine_Base/Sternum/Shoulder_R
+    m_Weight: 1
+  - m_Path: Skeleton/ROOT/COG/Spine_Base/Sternum/Shoulder_R/Elbow_R
+    m_Weight: 1
+  - m_Path: Skeleton/ROOT/COG/Spine_Base/Sternum/Shoulder_R/Elbow_R/Object_R
+    m_Weight: 1

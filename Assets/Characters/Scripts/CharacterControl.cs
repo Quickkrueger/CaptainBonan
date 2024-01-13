@@ -19,4 +19,9 @@ public class CharacterControl : MonoBehaviour
         _movementController.Move(moveVector);
         _animationControl.UpdateFloatProperty("speed", Mathf.Clamp(moveVector.magnitude, 0, 1));
     }
+
+    public void Primary()
+    {
+        _animationControl.UpdateTriggerProperty("shoot");
+    }
 }

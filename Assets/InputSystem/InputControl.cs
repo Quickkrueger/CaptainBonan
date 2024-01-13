@@ -11,6 +11,9 @@ public class InputControl : MonoBehaviour
     [SerializeField]
     private UnityEvent<Vector2> moveEvent;
 
+    [SerializeField]
+    private UnityEvent primaryEvent;
+
     public 
 
     void Awake()
@@ -59,7 +62,7 @@ public class InputControl : MonoBehaviour
         }
     }
 
-    public void Move(InputAction.CallbackContext context) //change change me to the exact name of the control added in the debug input scriptable object
+    public void Move(InputAction.CallbackContext context)
     {
         Vector2 moveVector = Vector2.zero;
         if(context.valueType != typeof(Vector2))
@@ -70,17 +73,13 @@ public class InputControl : MonoBehaviour
         moveVector = context.ReadValue<Vector2>();
 
         moveEvent.Invoke(moveVector);
+    }
 
+    public void Primary(InputAction.CallbackContext context)
+    {
         if (context.started)
         {
-        }
-
-        if (context.canceled)
-        {
-        }
-
-        if (context.performed)
-        {
+            primaryEvent.Invoke();
         }
     }
 

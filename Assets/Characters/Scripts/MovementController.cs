@@ -8,6 +8,11 @@ public class MovementController : MonoBehaviour
     private float _moveSpeed = 0;
 
     private Rigidbody _rb;
+    private Vector3 _moveVector = Vector3.zero;
+    private Vector3 _lookVector = Vector3.zero;
+
+    private Coroutine _movementRoutine;
+    private WaitForFixedUpdate _wffu = new WaitForFixedUpdate();
 
     // Start is called before the first frame update
     private void Start()
@@ -17,21 +22,41 @@ public class MovementController : MonoBehaviour
 
     public void Move(Vector2 moveVector)
     {
-        Vector3 move3D = Vector3.zero;
 
-        move3D.x = moveVector.x;
-        move3D.z = moveVector.y;
+        _moveVector.x = moveVector.x;
+        _moveVector.z = moveVector.y;
 
-        _rb.velocity = move3D * _moveSpeed;
-        Rotate();
+        if( _moveVector.magnitude > 0)
+        {
+            _movementRoutine = StartCoroutine(UpdateMovement());
+        }
+        else if(_movementRoutine != null)
+        {
+            StopCoroutine(_movementRoutine);
+            _movementRoutine = null;
+        }
     }
 
-    public void Rotate(float angle = 0)
+    public IEnumerator UpdateMovement()
+    {
+        _rb.velocity = _moveVector * _moveSpeed;
+        Rotate();
+        yield return _wffu;
+
+        _movementRoutine = StartCoroutine(UpdateMovement());
+
+    }
+
+    public void Rotate()
     {
 
-        if(angle == 0)
+        if(_lookVector == Vector3.zero && _moveVector != Vector3.zero)
         {
-            transform.rotation = Quaternion.LookRotation(transform.position + _rb.velocity, Vector3.up);
+            _rb.rotation = Quaternion.LookRotation(_moveVector);
+        }
+        else if(_lookVector != Vector3.zero)
+        {
+            _rb.rotation = Quaternion.LookRotation(_lookVector);
         }
     }
 }

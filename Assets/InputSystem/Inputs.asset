@@ -25,6 +25,14 @@ MonoBehaviour:
       m_Interactions: 
       m_SingletonActionBindings: []
       m_Flags: 0
+    - m_Name: Primary
+      m_Type: 1
+      m_ExpectedControlType: Button
+      m_Id: 0b7d242c-977a-41c2-84ad-ab40e4828232
+      m_Processors: 
+      m_Interactions: 
+      m_SingletonActionBindings: []
+      m_Flags: 0
     m_Bindings:
     - m_Name: 
       m_Id: b1164937-c52b-4547-9003-4e990575ab74
@@ -74,3 +82,19 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Move
       m_Flags: 8
+    - m_Name: 
+      m_Id: 154c563e-7e7b-48a5-8ef4-ccc8a0e8c090
+      m_Path: <Gamepad>/buttonEast
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Primary
+      m_Flags: 0
+    - m_Name: 
+      m_Id: dff159a9-d86f-429d-abd8-8a6e9214d826
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Primary
+      m_Flags: 0

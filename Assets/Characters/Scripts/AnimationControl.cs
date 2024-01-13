@@ -19,11 +19,16 @@ public class AnimationControl : MonoBehaviour
 
     public void UpdateIntProperty(string propertyName, int propertyValue)
     {
-
+        _animator.SetInteger(propertyName, propertyValue);
     }
 
     public void UpdateBoolProperty(string propertyName, bool propertyValue)
     {
+        _animator.SetBool(propertyName, propertyValue);
+    }
 
+    public void UpdateTriggerProperty(string propertyName)
+    {
+        _animator.SetTrigger(propertyName);
     }
 }
