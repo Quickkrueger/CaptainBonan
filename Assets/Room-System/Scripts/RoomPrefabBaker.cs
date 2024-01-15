@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
-using Autodesk.Fbx;
+using UnityEditor.Formats.Fbx.Exporter;
 
 [RequireComponent(typeof(Grid))]
 public class RoomPrefabBaker : MonoBehaviour
@@ -39,27 +39,7 @@ public class RoomPrefabBaker : MonoBehaviour
                 Transform child = transform.GetChild(i);
                 if(child.childCount != 0)
                 {
-                    using (FbxManager fbxManager = FbxManager.Create())
-                    {
-                        // configure IO settings.
-                        fbxManager.SetIOSettings(FbxIOSettings.Create(fbxManager, Globals.IOSROOT));
-
-                        // Export the scene
-                        using (FbxExporter exporter = FbxExporter.Create(fbxManager, "myExporter"))
-                        {
-
-                            // Initialize the exporter.
-                            bool status = exporter.Initialize(folderPath, -1, fbxManager.GetIOSettings());
-
-                            // Create a new scene to export
-                            FbxScene scene = FbxScene.Create(fbxManager, "myScene");
-
-                            // Export the scene to the file.
-                            exporter.Export(scene);
-                        }
-                    }
-
-                    //ModelExporter.ExportObject(folderPath + "/" + child.gameObject.name + ".fbx", child.gameObject);
+                    ModelExporter.ExportObject(folderPath + "/" + child.gameObject.name + ".fbx", child.gameObject);
                     //PrefabUtility.SaveAsPrefabAssetAndConnect(child.gameObject, folderPath + "/" + child.gameObject.name + ".prefab", InteractionMode.UserAction);
                     
                     success = true;
