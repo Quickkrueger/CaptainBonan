@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09910538abde78c4f9ef233ef9eb9428, type: 3}
   m_Name: RoomSet
   m_EditorClassIdentifier: 
-  startRooms: {fileID: 11400000, guid: 15eec14752cbd914a83810205109a1d2, type: 2}
-  rooms: {fileID: 11400000, guid: 5b506c0b152c63a458a7e647b391f743, type: 2}
-  endRooms: {fileID: 11400000, guid: 1ca05bf7d03938d4a85289b8c6cb259d, type: 2}
+  startRooms: {fileID: 11400000, guid: cf2fdc6f60242f24d958ee4bbc2d8c26, type: 2}
+  rooms: {fileID: 11400000, guid: 5126fa4b94e21f44ea281774468ae783, type: 2}
+  endRooms: {fileID: 11400000, guid: 86e738104939e2145a9eeadf9d9b3e8f, type: 2}

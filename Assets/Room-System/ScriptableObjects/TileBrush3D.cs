@@ -6,6 +6,7 @@ using UnityEditor.Tilemaps;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using System.Linq;
 
 namespace RoomTools.Brushes
 {
@@ -230,11 +231,11 @@ public class TileBrush3DEditor : Editor
             GUIStyle listStyle = new GUIStyle();
             Color[] pixels;
 
-            foreach(GameObjectBrush.BrushCell cell in validCells)
+            for(int i = validCells.Count - 1; i >= 0; i--)
             {
-                if(cell.gameObject == null)
+                if (validCells[i].gameObject == null)
                 {
-                    validCells.Remove(cell);
+                    validCells.Remove(validCells[i]);
                 }
             }
 

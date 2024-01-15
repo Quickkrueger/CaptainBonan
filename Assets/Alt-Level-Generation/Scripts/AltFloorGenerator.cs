@@ -24,7 +24,7 @@ public class AltFloorGenerator : MonoBehaviour
     {
         ChooseStartingRoom();
         ChooseRoom();
-        MakeHalls();
+        //MakeHalls();
         ChooseEndRoom();
     }
 
@@ -69,12 +69,12 @@ public class AltFloorGenerator : MonoBehaviour
 
     private void MakeHalls()
     {
-        for(int i = 0; i < floorGridSize.x; i++)
+        for (int i = 0; i < floorGridSize.x; i++)
         {
-            for(int j = 0; j < floorGridSize.y; j++)
+            for (int j = 0; j < floorGridSize.y; j++)
             {
 
-                if(floorGrid.CheckForTileNeighbor(i, j, 1))
+                if (floorGrid.CheckForTileNeighbor(i, j, 1))
                 {
                     Instantiate(hallPrefab, new Vector3(i * roomSpacing - ((float)floorGridSize.x / 2f), 0, (j * roomSpacing) + (roomSpacing / 2) - ((float)floorGridSize.y / 2f)), Quaternion.Euler(new Vector3(90, 0, 0)));
                 }

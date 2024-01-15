@@ -9,14 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13b75c95f34a00d4e8c04f76b73312e6, type: 3}
-  m_Name: New Animated Tile
+  m_Script: {fileID: 11500000, guid: 4ef65c9357563cf4eb732b0dbe16cd40, type: 3}
+  m_Name: RoomList
   m_EditorClassIdentifier: 
-  m_AnimatedSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  m_MinSpeed: 1
-  m_MaxSpeed: 1
-  m_AnimationStartTime: 0
-  m_AnimationStartFrame: 0
-  m_TileColliderType: 0
+  assetList:
+  - {fileID: 4239546732949340586, guid: 360a6cabf4335494b9f65a3c5e925b14, type: 3}
