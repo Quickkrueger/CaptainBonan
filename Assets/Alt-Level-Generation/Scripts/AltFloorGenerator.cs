@@ -9,7 +9,7 @@ public class AltFloorGenerator : MonoBehaviour
     public float roomSpacing = 2;
     private int numRooms = 0;
     public RoomSetSO roomSet;
-    public GameObject hallPrefab;
+    //public GameObject hallPrefab;
 
     private FloorGrid floorGrid;
     // Start is called before the first frame update
@@ -67,25 +67,25 @@ public class AltFloorGenerator : MonoBehaviour
         floorGrid.ReplaceRoom(endCoord, roomSet.endRooms.GetRandomObject(), exRoom.EndRoom);
     }
 
-    private void MakeHalls()
-    {
-        for (int i = 0; i < floorGridSize.x; i++)
-        {
-            for (int j = 0; j < floorGridSize.y; j++)
-            {
+    //private void MakeHalls()
+    //{
+    //    for (int i = 0; i < floorGridSize.x; i++)
+    //    {
+    //        for (int j = 0; j < floorGridSize.y; j++)
+    //        {
 
-                if (floorGrid.CheckForTileNeighbor(i, j, 1))
-                {
-                    Instantiate(hallPrefab, new Vector3(i * roomSpacing - ((float)floorGridSize.x / 2f), 0, (j * roomSpacing) + (roomSpacing / 2) - ((float)floorGridSize.y / 2f)), Quaternion.Euler(new Vector3(90, 0, 0)));
-                }
+    //            if (floorGrid.CheckForTileNeighbor(i, j, 1))
+    //            {
+    //                Instantiate(hallPrefab, new Vector3(i * roomSpacing - ((float)floorGridSize.x / 2f), 0, (j * roomSpacing) + (roomSpacing / 2) - ((float)floorGridSize.y / 2f)), Quaternion.Euler(new Vector3(90, 0, 0)));
+    //            }
 
-                if (floorGrid.CheckForTileNeighbor(i, j, 3))
-                {
-                    Instantiate(hallPrefab, new Vector3((i * roomSpacing) + (roomSpacing / 2) - ((float)floorGridSize.x / 2f), 0, j * roomSpacing - ((float)floorGridSize.y / 2f)), Quaternion.Euler(new Vector3(0, 0, 90)));
-                }
+    //            if (floorGrid.CheckForTileNeighbor(i, j, 3))
+    //            {
+    //                Instantiate(hallPrefab, new Vector3((i * roomSpacing) + (roomSpacing / 2) - ((float)floorGridSize.x / 2f), 0, j * roomSpacing - ((float)floorGridSize.y / 2f)), Quaternion.Euler(new Vector3(0, 0, 90)));
+    //            }
 
-            }
-        }
-    }
+    //        }
+    //    }
+    //}
 
 }

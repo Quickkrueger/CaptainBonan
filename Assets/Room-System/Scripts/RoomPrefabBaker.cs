@@ -6,7 +6,7 @@ using UnityEngine.Tilemaps;
 using UnityEngine;
 using UnityEditor;
 using System.Reflection;
-using UnityEditor.Formats.Fbx.Exporter;
+using Autodesk.Fbx;
 
 [RequireComponent(typeof(Grid))]
 public class RoomPrefabBaker : MonoBehaviour
@@ -37,11 +37,12 @@ public class RoomPrefabBaker : MonoBehaviour
             for(int i = 0; i < transform.childCount; i++)
             {
                 Transform child = transform.GetChild(i);
-                if(child.childCount != 0)
+                if(child.childCount != 0 && child.TryGetComponent<Grid>(out Grid grid))
                 {
-                    ModelExporter.ExportObject(folderPath + "/" + child.gameObject.name + ".fbx", child.gameObject);
-                    //PrefabUtility.SaveAsPrefabAssetAndConnect(child.gameObject, folderPath + "/" + child.gameObject.name + ".prefab", InteractionMode.UserAction);
-                    
+                    Destroy(grid);
+                    //ModelExporter.ExportObject(folderPath + "/" + child.gameObject.name + ".fbx", child.gameObject);
+                    PrefabUtility.SaveAsPrefabAssetAndConnect(child.gameObject, folderPath + "/" + child.gameObject.name + ".prefab", InteractionMode.UserAction);
+
                     success = true;
                 }
             }
@@ -116,15 +117,15 @@ public class RoomPrefabBakerEditor : Editor
             }
             EditorGUILayout.EndHorizontal();
 
-            if(GUILayout.Button("Generate FBX from Tilemaps", GUILayout.Height(50)))
+            if(GUILayout.Button("Generate Prefab from Tilemaps", GUILayout.Height(50)))
             {
                 if(roomPrefabBakerInstance.GeneratePrefab())
                 {
-                    Debug.Log("FBX Successfully Generated");
+                    Debug.Log("Prefab Successfully Generated");
                 }
                 else
                 {
-                    Debug.LogError("FBX could not be generated");
+                    Debug.LogError("Prefab could not be generated");
                 }
             }
         }

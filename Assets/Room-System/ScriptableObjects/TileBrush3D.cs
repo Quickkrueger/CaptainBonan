@@ -229,6 +229,7 @@ public class TileBrush3DEditor : Editor
             List<GameObjectBrush.BrushCell> validCells = new List<GameObjectBrush.BrushCell>(tileBrush3DInstance.cells);
             GameObjectBrush.BrushCell currentCell = tileBrush3DInstance.GetCurrentCell();
             GUIStyle listStyle = new GUIStyle();
+            GUIStyle brushTexttStyle = new GUIStyle();
             Color[] pixels;
 
             for(int i = validCells.Count - 1; i >= 0; i--)
@@ -240,6 +241,8 @@ public class TileBrush3DEditor : Editor
             }
 
             listStyle.normal.background = Texture2D.blackTexture;
+            brushTexttStyle.fixedWidth = 300f;
+            brushTexttStyle.stretchWidth = true;
 
             pixels = listStyle.normal.background.GetPixels();
 
@@ -259,7 +262,7 @@ public class TileBrush3DEditor : Editor
                 currentCellName = currentCell.gameObject.name;
             }
 
-            EditorGUILayout.PrefixLabel($"Selected Brush: {currentCellName.ToUpper()}");
+            EditorGUILayout.PrefixLabel($"Selected Brush: {currentCellName.ToUpper()}", brushTexttStyle);
             EditorGUILayout.Space();
             tileBrush3DInstance.replaceTiles = EditorGUILayout.ToggleLeft("Replace tiles with current brush.", tileBrush3DInstance.replaceTiles);
             EditorGUILayout.Space();
