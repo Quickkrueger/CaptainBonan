@@ -24,8 +24,8 @@ public class AltFloorGenerator : MonoBehaviour
     {
         ChooseStartingRoom();
         ChooseRoom();
-        //MakeHalls();
         ChooseEndRoom();
+        FinalizeRooms();
     }
 
     private void ChooseStartingRoom()
@@ -67,25 +67,10 @@ public class AltFloorGenerator : MonoBehaviour
         floorGrid.ReplaceRoom(endCoord, roomSet.endRooms.GetRandomObject(), exRoom.EndRoom);
     }
 
-    private void MakeHalls()
+    private void FinalizeRooms()
     {
-        for (int i = 0; i < floorGridSize.x; i++)
-        {
-            for (int j = 0; j < floorGridSize.y; j++)
-            {
-
-                if (floorGrid.CheckForTileNeighbor(i, j, 1))
-                {
-                    
-                }
-
-                if (floorGrid.CheckForTileNeighbor(i, j, 3))
-                {
-                    
-                }
-
-            }
-        }
+        floorGrid.FinalizeRooms();
     }
+
 
 }

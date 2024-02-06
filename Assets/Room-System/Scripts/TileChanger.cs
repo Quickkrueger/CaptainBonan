@@ -4,12 +4,37 @@ using UnityEngine;
 
 public class TileChanger : MonoBehaviour
 {
+
+    private MeshFilter _tileMesh;
     [SerializeField]
-    private GameObject alternateTile;
-    
+    private Mesh alternateTile;
+
+    [SerializeField]
+    private Direction direction;
+
+    public Direction Direction {  get { return direction; } }
+
+    private void Start()
+    {
+        _tileMesh = GetComponent<MeshFilter>();
+        if(direction == Direction.None)
+        {
+            SwapToAlternate();
+        }
+    }
+
+
     public void SwapToAlternate()
     {
-        Instantiate(alternateTile, transform.position, transform.rotation, transform.parent);
-        Destroy(gameObject);
+        _tileMesh.mesh = alternateTile;
     }
+}
+
+public enum Direction
+{
+    North,
+    South,
+    East,
+    West,
+    None
 }

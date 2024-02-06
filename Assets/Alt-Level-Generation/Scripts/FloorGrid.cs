@@ -211,5 +211,13 @@ public class FloorGrid
     {
         return floorRooms[xCoord, zCoord].CheckForNeighbor(index);
     }
+
+    public void FinalizeRooms()
+    {
+        for(int i = 0; i <  occupiedRooms.Count; i++)
+        {
+            occupiedRooms[i].FinalizeRoom();
+        }
+    }
     
 }

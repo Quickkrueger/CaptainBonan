@@ -208,6 +208,7 @@ GameObject:
   - component: {fileID: 3728538900198417331}
   - component: {fileID: 3728538900198417328}
   - component: {fileID: 3728538900198417329}
+  - component: {fileID: 5876161012165977590}
   m_Layer: 0
   m_Name: T_Center
   m_TagString: Untagged
@@ -294,6 +295,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2385820668052547965, guid: 4b523c9ee28cad74f9dddeababc41bca, type: 3}
+--- !u!114 &5876161012165977590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728538900198417335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alternateTile: {fileID: 8693757651734025951, guid: 4b523c9ee28cad74f9dddeababc41bca,
+    type: 3}
+  direction: 0
 --- !u!1 &3728538900229874148
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +420,7 @@ GameObject:
   - component: {fileID: 3728538900314053928}
   - component: {fileID: 3728538900314053929}
   - component: {fileID: 3728538900314053934}
+  - component: {fileID: 3169628931327400055}
   m_Layer: 0
   m_Name: NS_Hall
   m_TagString: Untagged
@@ -490,6 +507,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5852243228123845291, guid: 4b523c9ee28cad74f9dddeababc41bca, type: 3}
+--- !u!114 &3169628931327400055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728538900314053932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alternateTile: {fileID: 3578420920205291733, guid: 4b523c9ee28cad74f9dddeababc41bca,
+    type: 3}
+  direction: 2
 --- !u!1 &3728538900350560551
 GameObject:
   m_ObjectHideFlags: 0
@@ -502,6 +534,7 @@ GameObject:
   - component: {fileID: 3728538900350560547}
   - component: {fileID: 3728538900350560544}
   - component: {fileID: 3728538900350560545}
+  - component: {fileID: 1361478447173085600}
   m_Layer: 0
   m_Name: T_Center
   m_TagString: Untagged
@@ -588,6 +621,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2385820668052547965, guid: 4b523c9ee28cad74f9dddeababc41bca, type: 3}
+--- !u!114 &1361478447173085600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728538900350560551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alternateTile: {fileID: -436161472726126422, guid: 4b523c9ee28cad74f9dddeababc41bca,
+    type: 3}
+  direction: 1
 --- !u!1 &3728538900370558725
 GameObject:
   m_ObjectHideFlags: 0
@@ -1775,6 +1823,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _virtualCamera: {fileID: 3728538900979338056}
+  _isStartRoom: 0
 --- !u!65 &3728538900702289849
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3439,6 +3488,7 @@ GameObject:
   - component: {fileID: 3728538901480305635}
   - component: {fileID: 3728538901480305632}
   - component: {fileID: 3728538901480305633}
+  - component: {fileID: 8566957295022196736}
   m_Layer: 0
   m_Name: T_Center
   m_TagString: Untagged
@@ -3525,6 +3575,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2385820668052547965, guid: 4b523c9ee28cad74f9dddeababc41bca, type: 3}
+--- !u!114 &8566957295022196736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728538901480305639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alternateTile: {fileID: 5572801597439009380, guid: 4b523c9ee28cad74f9dddeababc41bca,
+    type: 3}
+  direction: 2
 --- !u!1 &3728538901495737242
 GameObject:
   m_ObjectHideFlags: 0
@@ -3537,6 +3602,7 @@ GameObject:
   - component: {fileID: 3728538901495737222}
   - component: {fileID: 3728538901495737223}
   - component: {fileID: 3728538901495737220}
+  - component: {fileID: 7150360217051750681}
   m_Layer: 0
   m_Name: EW_Hall
   m_TagString: Untagged
@@ -3623,6 +3689,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3053285764408751928, guid: 4b523c9ee28cad74f9dddeababc41bca, type: 3}
+--- !u!114 &7150360217051750681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728538901495737242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alternateTile: {fileID: 3578420920205291733, guid: 4b523c9ee28cad74f9dddeababc41bca,
+    type: 3}
+  direction: 1
 --- !u!1 &3728538901594965864
 GameObject:
   m_ObjectHideFlags: 0
@@ -3733,6 +3814,7 @@ GameObject:
   - component: {fileID: 3728538901630737173}
   - component: {fileID: 3728538901630731498}
   - component: {fileID: 3728538901630731499}
+  - component: {fileID: 6487000975747343060}
   m_Layer: 0
   m_Name: EW_Hall
   m_TagString: Untagged
@@ -3819,6 +3901,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -3053285764408751928, guid: 4b523c9ee28cad74f9dddeababc41bca, type: 3}
+--- !u!114 &6487000975747343060
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728538901630731497}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alternateTile: {fileID: 3578420920205291733, guid: 4b523c9ee28cad74f9dddeababc41bca,
+    type: 3}
+  direction: 0
 --- !u!1 &3728538901731645870
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,6 +4124,7 @@ GameObject:
   - component: {fileID: 3728538901875771633}
   - component: {fileID: 3728538901875771638}
   - component: {fileID: 3728538901875771639}
+  - component: {fileID: 5788783672796197384}
   m_Layer: 0
   m_Name: NS_Hall
   m_TagString: Untagged
@@ -4113,6 +4211,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 5852243228123845291, guid: 4b523c9ee28cad74f9dddeababc41bca, type: 3}
+--- !u!114 &5788783672796197384
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728538901875771637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alternateTile: {fileID: 3578420920205291733, guid: 4b523c9ee28cad74f9dddeababc41bca,
+    type: 3}
+  direction: 3
 --- !u!1 &3728538901898406682
 GameObject:
   m_ObjectHideFlags: 0
@@ -4561,6 +4674,7 @@ GameObject:
   - component: {fileID: 3728538901996210090}
   - component: {fileID: 3728538901996210091}
   - component: {fileID: 3728538901996210088}
+  - component: {fileID: 6300973256221829922}
   m_Layer: 0
   m_Name: T_Center
   m_TagString: Untagged
@@ -4647,6 +4761,21 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -2385820668052547965, guid: 4b523c9ee28cad74f9dddeababc41bca, type: 3}
+--- !u!114 &6300973256221829922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3728538901996210094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alternateTile: {fileID: -7695772654752298201, guid: 4b523c9ee28cad74f9dddeababc41bca,
+    type: 3}
+  direction: 3
 --- !u!1 &3728538902001657558
 GameObject:
   m_ObjectHideFlags: 0
