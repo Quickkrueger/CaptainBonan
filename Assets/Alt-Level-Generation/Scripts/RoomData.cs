@@ -114,6 +114,12 @@ public class RoomData
         return neighbors.GetNumberOfOccupiedNeighbors();
     }
 
+    public void FinalizeRoom()
+    {
+        RoomManager manager = roomObject.GetComponent<RoomManager>();
+        manager.SetUpRoom(this);
+    }
+
 
 }
 
