@@ -6,6 +6,7 @@ public class TileChanger : MonoBehaviour
 {
 
     private MeshFilter _tileMesh;
+    private MeshCollider _tileCollider;
     [SerializeField]
     private Mesh alternateTile;
 
@@ -14,9 +15,10 @@ public class TileChanger : MonoBehaviour
 
     public Direction Direction {  get { return direction; } }
 
-    private void Start()
+    private void Awake()
     {
         _tileMesh = GetComponent<MeshFilter>();
+        _tileCollider = GetComponent<MeshCollider>();
         if(direction == Direction.None)
         {
             SwapToAlternate();
@@ -26,7 +28,11 @@ public class TileChanger : MonoBehaviour
 
     public void SwapToAlternate()
     {
-        _tileMesh.mesh = alternateTile;
+        if (alternateTile != null)
+        {
+            _tileMesh.mesh = alternateTile;
+            _tileCollider.sharedMesh = alternateTile;
+        }
     }
 }
 

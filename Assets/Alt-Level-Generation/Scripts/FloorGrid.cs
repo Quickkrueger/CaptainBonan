@@ -48,42 +48,42 @@ public class FloorGrid
 
                 if (j > 0)
                 {
-                    north = floorRooms[i, j - 1];
+                    south = floorRooms[i, j - 1];
 
                     if (i < floorRooms.GetLength(0) - 1)
                     {
-                        northWest = floorRooms[i + 1, j - 1];
+                        southEast = floorRooms[i + 1, j - 1];
                     }
 
                     if (i > 0)
                     {
-                        northEast = floorRooms[i - 1, j - 1];
+                        southWest = floorRooms[i - 1, j - 1];
                     }
                 }
 
                 if (j < floorRooms.GetLength(1) - 1)
                 {
-                    south = floorRooms[i, j + 1];
+                    north = floorRooms[i, j + 1];
 
                     if (i < floorRooms.GetLength(0) - 1)
                     {
-                        southWest = floorRooms[i + 1, j + 1];
+                        northEast = floorRooms[i + 1, j + 1];
                     }
 
                     if (i > 0)
                     {
-                        southEast = floorRooms[i - 1, j + 1];
+                        northWest = floorRooms[i - 1, j + 1];
                     }
                 }
 
                 if (i > 0)
                 {
-                    east = floorRooms[i - 1, j];
+                    west = floorRooms[i - 1, j];
                 }
 
                 if (i < floorRooms.GetLength(0) - 1)
                 {
-                    west = floorRooms[i + 1, j];
+                    east = floorRooms[i + 1, j];
                 }
 
                 floorRooms[i, j].SetNeighbors(north, south, east, west, northWest, northEast, southWest, southEast);

@@ -18,22 +18,6 @@ public class RoomManager : MonoBehaviour
         tileChangers = GetComponentsInChildren<TileChanger>();
     }
 
-    public void SetUpRoom(RoomData roomData)
-    {
-        SetEntrances(roomData);
-    }
-
-    private void SetEntrances(RoomData roomData)
-    {
-        for(int i = 0; i < tileChangers.Length; i++)
-        {
-            if (tileChangers[i].Direction != Direction.None && !roomData.CheckForNeighbor((int)tileChangers[i].Direction))
-            {
-                tileChangers[i].SwapToAlternate();
-            }
-        }
-    }
-
     private void Start()
     {
         if( _isStartRoom)
@@ -46,6 +30,22 @@ public class RoomManager : MonoBehaviour
         if(other.tag == "Player")
         {
             _virtualCamera.MoveToTopOfPrioritySubqueue();
+        }
+    }
+
+    public void SetUpRoom(RoomData roomData)
+    {
+        SetEntrances(roomData);
+    }
+
+    private void SetEntrances(RoomData roomData)
+    {
+        for (int i = 0; i < tileChangers.Length; i++)
+        {
+            if (tileChangers[i].Direction != Direction.None && !roomData.CheckForNeighbor((int)tileChangers[i].Direction))
+            {
+                tileChangers[i].SwapToAlternate();
+            }
         }
     }
 
