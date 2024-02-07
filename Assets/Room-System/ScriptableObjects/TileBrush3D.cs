@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 //Created by: Marshall Krueger
 //Last edited by: Marshall Krueger 02/09/23
 //Purpose: A 3D Tile brush for our 3D tile system
@@ -213,7 +214,7 @@ public class TileBrush3D : GameObjectBrush
 
 
 
-#if UNITY_EDITOR
+
 
 [CustomEditor(typeof(TileBrush3D))]
 public class TileBrush3DEditor : Editor
