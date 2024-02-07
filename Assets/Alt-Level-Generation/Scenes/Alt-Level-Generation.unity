@@ -320,8 +320,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58d5e8b7848572c41a3b240a02310a16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorGridSize: {x: 3, y: 3}
-  maxRooms: 4
+  floorGridSize: {x: 10, y: 10}
+  maxRooms: 15
   roomSpacing: 7
   roomSet: {fileID: 11400000, guid: c36a0083be1ff7d40bfdfb4767940091, type: 2}
 --- !u!1 &1305511150
