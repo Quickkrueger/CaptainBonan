@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 //Created by: Marshall Krueger
 //Last edited by: marshall Krueger 02/13/2023
 //Purpose: This script generates a prefab from a newly made room layout
@@ -31,15 +32,14 @@ public class RoomPrefabBaker : MonoBehaviour
             folderPath = "Assets";
         }
 
-        if(transform.childCount > 0)
+        if(transform.childCount != 0)
         {
 
             for(int i = 0; i < transform.childCount; i++)
             {
                 Transform child = transform.GetChild(i);
-                if(child.childCount != 0 && child.TryGetComponent<Grid>(out Grid grid))
+                if(child.childCount > 2)
                 {
-                    Destroy(grid);
                     //ModelExporter.ExportObject(folderPath + "/" + child.gameObject.name + ".fbx", child.gameObject);
                     PrefabUtility.SaveAsPrefabAssetAndConnect(child.gameObject, folderPath + "/" + child.gameObject.name + ".prefab", InteractionMode.UserAction);
 
@@ -55,13 +55,22 @@ public class RoomPrefabBaker : MonoBehaviour
 
         }
 
-        GameObject temp = new GameObject();
-        temp.transform.parent = transform;
-        temp.transform.localPosition = Vector3.zero;
-        temp.name = "New Room";
+        GameObject newRoom = new GameObject();
+        newRoom.transform.parent = transform;
+        newRoom.transform.localPosition = Vector3.zero;
+        newRoom.name = "New Room";
+       
 
-        Grid grd = temp.AddComponent<Grid>();
-        grd.cellSwizzle = GridLayout.CellSwizzle.XZY;
+        GameObject tiles = new GameObject();
+        tiles.transform.parent = newRoom.transform;
+        tiles.transform.localPosition = Vector3.zero;
+        tiles.name = "Tiles";
+
+        GameObject spawners = new GameObject();
+        spawners.transform.parent = newRoom.transform;
+        spawners.transform.localPosition = Vector3.zero;
+        spawners.name = "Spawners";
+
 
         return success;
     }
@@ -89,7 +98,6 @@ public class RoomPrefabBaker : MonoBehaviour
 
 
 
-#if UNITY_EDITOR
 [CustomEditor(typeof(RoomPrefabBaker))]
 public class RoomPrefabBakerEditor : Editor
     {
