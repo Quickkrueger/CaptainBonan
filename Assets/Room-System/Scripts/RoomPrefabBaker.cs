@@ -82,6 +82,7 @@ public class RoomPrefabBaker : MonoBehaviour
         camera.name = "CM vcam1";
 
         CinemachineVirtualCamera virtCam = camera.AddComponent<CinemachineVirtualCamera>();
+        virtCam.m_Lens.FieldOfView = 60;
 
         roomManager._virtualCamera = virtCam;
 

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eaad49b4d6d8db4dbc5dc6c17054ccb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizable: 0
+  randomizable: 1
   spawnSet: []
   spawnGroup: 2
 --- !u!212 &-1808738075663143761
