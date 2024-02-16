@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 //Created by: Marshall Krueger
 //Last edited by: marshall Krueger 02/13/2023
 //Purpose: This script generates a prefab from a newly made room layout
@@ -7,6 +8,8 @@ using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using Autodesk.Fbx;
+using Unity.VisualScripting;
+using Cinemachine;
 
 [RequireComponent(typeof(Grid))]
 public class RoomPrefabBaker : MonoBehaviour
@@ -31,15 +34,14 @@ public class RoomPrefabBaker : MonoBehaviour
             folderPath = "Assets";
         }
 
-        if(transform.childCount > 0)
+        if(transform.childCount != 0)
         {
 
             for(int i = 0; i < transform.childCount; i++)
             {
                 Transform child = transform.GetChild(i);
-                if(child.childCount != 0 && child.TryGetComponent<Grid>(out Grid grid))
+                if (child.childCount >= 2 && child.GetChild(0).childCount > 0)
                 {
-                    Destroy(grid);
                     //ModelExporter.ExportObject(folderPath + "/" + child.gameObject.name + ".fbx", child.gameObject);
                     PrefabUtility.SaveAsPrefabAssetAndConnect(child.gameObject, folderPath + "/" + child.gameObject.name + ".prefab", InteractionMode.UserAction);
 
@@ -55,13 +57,35 @@ public class RoomPrefabBaker : MonoBehaviour
 
         }
 
-        GameObject temp = new GameObject();
-        temp.transform.parent = transform;
-        temp.transform.localPosition = Vector3.zero;
-        temp.name = "New Room";
+        GameObject newRoom = new GameObject();
+        newRoom.transform.parent = transform;
+        newRoom.transform.localPosition = Vector3.zero;
+        newRoom.name = "New Room";
 
-        Grid grd = temp.AddComponent<Grid>();
-        grd.cellSwizzle = GridLayout.CellSwizzle.XZY;
+        RoomManager roomManager = newRoom.AddComponent<RoomManager>();
+       
+
+        GameObject tiles = new GameObject();
+        tiles.transform.parent = newRoom.transform;
+        tiles.transform.localPosition = Vector3.zero;
+        tiles.name = "Tiles";
+
+        GameObject spawners = new GameObject();
+        spawners.transform.parent = newRoom.transform;
+        spawners.transform.localPosition = Vector3.zero;
+        spawners.name = "Spawners";
+
+        GameObject camera = new GameObject();
+        camera.transform.parent = newRoom.transform;
+        camera.transform.localPosition = new Vector3(-0.5f, 6, -5);
+        camera.transform.localEulerAngles = Vector3.right * 60;
+        camera.name = "CM vcam1";
+
+        CinemachineVirtualCamera virtCam = camera.AddComponent<CinemachineVirtualCamera>();
+        virtCam.m_Lens.FieldOfView = 60;
+
+        roomManager._virtualCamera = virtCam;
+
 
         return success;
     }
@@ -89,7 +113,6 @@ public class RoomPrefabBaker : MonoBehaviour
 
 
 
-#if UNITY_EDITOR
 [CustomEditor(typeof(RoomPrefabBaker))]
 public class RoomPrefabBakerEditor : Editor
     {

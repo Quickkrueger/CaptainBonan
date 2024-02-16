@@ -1,21 +1,36 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField]
-    private CinemachineVirtualCamera _virtualCamera;
+    public CinemachineVirtualCamera _virtualCamera;
 
     [SerializeField]
     private bool _isStartRoom;
 
-    private TileChanger[] tileChangers;
+    private TileChanger[] _tileChangers;
+    private Spawner[] _spawners;
+    private SpawnGroup _roomGroup;
 
     private void Awake()
     {
-        tileChangers = GetComponentsInChildren<TileChanger>();
+        _tileChangers = GetComponentsInChildren<TileChanger>();
+        _spawners = GetComponentsInChildren<Spawner>();
+
+        Array spawnGroups = Enum.GetValues(typeof(SpawnGroup));
+        for(int i = 0; i < spawnGroups.Length; i++)
+        {
+            if ((SpawnGroup)spawnGroups.GetValue(i) != SpawnGroup.None) 
+            {
+                _roomGroup |= (SpawnGroup)spawnGroups.GetValue(i);
+            }
+        }
+
+        int roomGroupValue = (int) _roomGroup;
+        UnityEngine.Random.InitState(DateTime.Now.Millisecond);
+        roomGroupValue = UnityEngine.Random.Range(0, roomGroupValue + 1);
+        _roomGroup = (SpawnGroup)roomGroupValue;
     }
 
     private void Start()
@@ -36,15 +51,31 @@ public class RoomManager : MonoBehaviour
     public void SetUpRoom(RoomData roomData)
     {
         SetEntrances(roomData);
+        SetSpawners();
     }
 
     private void SetEntrances(RoomData roomData)
     {
-        for (int i = 0; i < tileChangers.Length; i++)
+        for (int i = 0; i < _tileChangers.Length; i++)
         {
-            if (tileChangers[i].Direction != Direction.None && !roomData.CheckForNeighbor((int)tileChangers[i].Direction))
+            if (_tileChangers[i].Direction != Direction.None && !roomData.CheckForNeighbor((int)_tileChangers[i].Direction))
             {
-                tileChangers[i].SwapToAlternate();
+                _tileChangers[i].SwapToAlternate();
+            }
+        }
+    }
+
+    private void SetSpawners()
+    {
+        foreach(Spawner spawner in _spawners)
+        {
+            if(spawner.Randomizable && _roomGroup.HasFlag(spawner.p_SpawnGroup))
+            {
+                spawner.Spawn();
+            }
+            else if (spawner.Randomizable)
+            {
+                spawner.gameObject.SetActive(false);
             }
         }
     }
