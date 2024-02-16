@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class RoomManager : MonoBehaviour
 {
-    [SerializeField]
-    private CinemachineVirtualCamera _virtualCamera;
+    public CinemachineVirtualCamera _virtualCamera;
 
     [SerializeField]
     private bool _isStartRoom;

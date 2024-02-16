@@ -8,6 +8,8 @@ using UnityEngine;
 using UnityEditor;
 using System.Reflection;
 using Autodesk.Fbx;
+using Unity.VisualScripting;
+using Cinemachine;
 
 [RequireComponent(typeof(Grid))]
 public class RoomPrefabBaker : MonoBehaviour
@@ -38,7 +40,7 @@ public class RoomPrefabBaker : MonoBehaviour
             for(int i = 0; i < transform.childCount; i++)
             {
                 Transform child = transform.GetChild(i);
-                if(child.childCount > 2)
+                if (child.childCount >= 2 && child.GetChild(0).childCount > 0)
                 {
                     //ModelExporter.ExportObject(folderPath + "/" + child.gameObject.name + ".fbx", child.gameObject);
                     PrefabUtility.SaveAsPrefabAssetAndConnect(child.gameObject, folderPath + "/" + child.gameObject.name + ".prefab", InteractionMode.UserAction);
@@ -59,6 +61,8 @@ public class RoomPrefabBaker : MonoBehaviour
         newRoom.transform.parent = transform;
         newRoom.transform.localPosition = Vector3.zero;
         newRoom.name = "New Room";
+
+        RoomManager roomManager = newRoom.AddComponent<RoomManager>();
        
 
         GameObject tiles = new GameObject();
@@ -70,6 +74,16 @@ public class RoomPrefabBaker : MonoBehaviour
         spawners.transform.parent = newRoom.transform;
         spawners.transform.localPosition = Vector3.zero;
         spawners.name = "Spawners";
+
+        GameObject camera = new GameObject();
+        camera.transform.parent = newRoom.transform;
+        camera.transform.localPosition = new Vector3(-0.5f, 6, -5);
+        camera.transform.localEulerAngles = Vector3.right * 60;
+        camera.name = "CM vcam1";
+
+        CinemachineVirtualCamera virtCam = camera.AddComponent<CinemachineVirtualCamera>();
+
+        roomManager._virtualCamera = virtCam;
 
 
         return success;
