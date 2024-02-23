@@ -313,5 +313,6 @@ public class TileBrush3DEditor : Editor
             DrawDefaultInspector();
         }
     }
-#endif
+
 }
+#endif
