@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class AltFloorGenerator : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class AltFloorGenerator : MonoBehaviour
     public float roomSpacing = 2;
     private int numRooms = 0;
     public RoomSetSO roomSet;
+    public NavMeshSurface navMeshSurface;
     //public GameObject hallPrefab;
 
     private FloorGrid floorGrid;
@@ -26,6 +28,7 @@ public class AltFloorGenerator : MonoBehaviour
         ChooseRoom();
         ChooseEndRoom();
         FinalizeRooms();
+        GenerateNavmesh();
     }
 
     private void ChooseStartingRoom()
@@ -70,6 +73,11 @@ public class AltFloorGenerator : MonoBehaviour
     private void FinalizeRooms()
     {
         floorGrid.FinalizeRooms();
+    }
+
+    private void GenerateNavmesh()
+    {
+        navMeshSurface.BuildNavMesh();
     }
 
 

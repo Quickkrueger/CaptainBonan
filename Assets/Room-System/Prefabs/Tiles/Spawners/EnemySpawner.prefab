@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   randomizable: 1
-  spawnSet: []
+  spawnSet:
+  - {fileID: 3493199010304888436, guid: 3a1d94fbb06f2694b9797269079dd3c1, type: 3}
   spawnGroup: 1
 --- !u!212 &6126002297719153344
 SpriteRenderer:
