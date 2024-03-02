@@ -1,5 +1,4 @@
 using Cinemachine;
-using System;
 using UnityEngine;
 
 public class RoomManager : MonoBehaviour
@@ -9,8 +8,10 @@ public class RoomManager : MonoBehaviour
     [SerializeField]
     private bool _isStartRoom;
 
+    private bool activated = false;
     private TileChanger[] _tileChangers;
     private Spawner[] _spawners;
+    private Trap[] _traps;
     private SpawnGroup _roomGroup;
 
     private void Awake()
@@ -18,7 +19,7 @@ public class RoomManager : MonoBehaviour
         _tileChangers = GetComponentsInChildren<TileChanger>();
         _spawners = GetComponentsInChildren<Spawner>();
 
-        Array spawnGroups = Enum.GetValues(typeof(SpawnGroup));
+        System.Array spawnGroups = System.Enum.GetValues(typeof(SpawnGroup));
         for(int i = 0; i < spawnGroups.Length; i++)
         {
             if ((SpawnGroup)spawnGroups.GetValue(i) != SpawnGroup.None) 
@@ -28,7 +29,7 @@ public class RoomManager : MonoBehaviour
         }
 
         int roomGroupValue = (int) _roomGroup;
-        UnityEngine.Random.InitState(DateTime.Now.Millisecond);
+        UnityEngine.Random.InitState(System.DateTime.Now.Millisecond);
         roomGroupValue = UnityEngine.Random.Range(0, roomGroupValue + 1);
         _roomGroup = (SpawnGroup)roomGroupValue;
     }
@@ -44,8 +45,38 @@ public class RoomManager : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            _virtualCamera.MoveToTopOfPrioritySubqueue();
+            ActivateCamera();
+
+            if (!activated)
+            {
+                activated = true;
+                ActivateRoom();
+            }
         }
+    }
+
+    private void ActivateCamera()
+    {
+        _virtualCamera.MoveToTopOfPrioritySubqueue();
+    }
+
+    private void ActivateRoom()
+    {
+        
+
+        if(_traps == null || _traps.Length <= 0 )
+        {
+            _traps = GetComponentsInChildren<Trap>();
+        }
+
+        for(int i = 0; i < _traps.Length; i++)
+        {
+            if (_traps[i] != null)
+            {
+                _traps[i].EnableTrap();
+            }
+        }
+
     }
 
     public void SetUpRoom(RoomData roomData)
