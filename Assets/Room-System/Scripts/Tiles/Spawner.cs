@@ -8,10 +8,23 @@ public class Spawner : MonoBehaviour
     GameObject[] spawnSet;
     [SerializeField]
     SpawnGroup spawnGroup;
+    [SerializeField]
+    Transform spawnTransform;
 
     public SpawnGroup p_SpawnGroup { get{ return spawnGroup; } }
 
+    private SpriteRenderer _editorIndicator;
+
     public bool Randomizable { get { return randomizable; } }
+
+    private void Awake()
+    {
+        _editorIndicator = GetComponent<SpriteRenderer>();
+
+#if !UNITY_EDITOR
+        Destroy(_editorIndicator);
+#endif
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -26,15 +39,12 @@ public class Spawner : MonoBehaviour
         if (spawnSet.Length > 0)
         {
             int rand = UnityEngine.Random.Range(0, spawnSet.Length);
-            GameObject spawnedObject = Instantiate(spawnSet[rand], transform.position, transform.rotation);
+            GameObject spawnedObject = Instantiate(spawnSet[rand], spawnTransform.position, spawnTransform.rotation);
             if (transform.parent != null)
             {
                 spawnedObject.transform.parent = transform.parent;
             }
         }
-#if !UNITY_EDITOR
-        Destroy(gameObject);
-#endif
     }
 }
 
