@@ -1,0 +1,391 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88ee10d572f8e6140bf3af2c9eecf1b9, type: 3}
+  m_Name: TestRule
+  m_EditorClassIdentifier: 
+  m_Cells:
+  - m_GameObject: {fileID: 910656528277579938, guid: 4fe868757e4a3744f82cab78264b7d9a,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 0, y: 0, z: 0}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Pivot: {x: 0, y: 0, z: 0}
+  m_CanChangeZPosition: 0
+  hiddenGridLayout:
+    cellSize: {x: 1, y: 1, z: 1}
+    cellGap: {x: 0, y: 0, z: 0}
+    cellLayout: 0
+    cellSwizzle: 0
+  hiddenGrid: {fileID: 0}
+  m_Anchor: {x: 0.5, y: 0.5, z: 0}
+  cells3D:
+  - m_GameObject: {fileID: 910656528277579938, guid: 4fe868757e4a3744f82cab78264b7d9a,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 1
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 1
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 1
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 636162112059241802, guid: 12e9076ad0825554c8ec6e2541a4fa87,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 1
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 1
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 3636490622134794953, guid: 7f698f93e57c0fa4db88d6c01e39270e,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 1
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 2
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 1
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 1
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 4929356655388554416, guid: 54935159e637ec7498cb53814f13156f,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 1
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 1
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 700869404693456471, guid: 8195dda32b3993a4fb9169c57e4f58a9,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 1
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 1
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 733433128071778239, guid: f893c82bc82e98b47967279e5c309676,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 1
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 860792252185604961, guid: 65219c71829c0494ca8145294acf58e9,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 1
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 2
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 1
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 2428496191869775921, guid: c9cd14d34006b9a4bb909e5f97beec7c,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 1
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 2
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 1
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 4847055748240826426, guid: 8a49baa0bcc26e443a72986158c5df55,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 1
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 2747617423338248648, guid: bd479fd18f5122249bae7ff1f38311e7,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 2
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 1
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 1
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 702899300067918942, guid: 9fea3e698bfa215429e371a3fb658a9f,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 1
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 8761454281697669570, guid: 6adaaea06ca683343b1f3c7446aa340f,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 2
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0

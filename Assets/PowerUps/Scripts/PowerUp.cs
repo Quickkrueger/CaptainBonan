@@ -2,22 +2,30 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "New PowerUp", menuName = "ScriptableObjects/Rogue/PowerUp", order = 0)]
-public class PowerUp : ScriptableObject
+public class PowerUp : MonoBehaviour, IInteractable
 {
     [SerializeField]
-    UpgradeType upgradeType;
+    private PowerUpData _powerUpData;
 
-    [SerializeField]
-    float upgradeValue;
-     
-}
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
 
-public enum UpgradeType
-{
-    Damage,
-    Speed,
-    AttackSpeed,
-    Health,
+    public void Interact()
+    {
+        throw new System.NotImplementedException();
+    }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
 }
