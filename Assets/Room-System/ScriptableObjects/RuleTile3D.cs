@@ -7,10 +7,6 @@ using UnityEditor.Tilemaps;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using System.Linq;
-using UnityEngine.UIElements;
-using Cinemachine.Editor;
-using UnityEditorInternal;
 
 namespace RoomTools.Brushes
 {
@@ -21,8 +17,9 @@ namespace RoomTools.Brushes
     {
 
         [SerializeField]
-        public BrushCell3D[] cells3D;
+        public RuleBrush3D[] cells3D;
         private List<Transform> updatedLocations;
+        private bool doubleChecking = false;
 
         private void OnEnable()
         {
@@ -33,7 +30,7 @@ namespace RoomTools.Brushes
 
             if (cells3D == null)
             {
-                cells3D = new BrushCell3D[0];
+                cells3D = new RuleBrush3D[0];
             }
         }
 
@@ -46,7 +43,7 @@ namespace RoomTools.Brushes
 
             if (cells3D == null)
             {
-                cells3D = new BrushCell3D[0];
+                cells3D = new RuleBrush3D[0];
             }
         }
 
@@ -84,6 +81,16 @@ namespace RoomTools.Brushes
             BoundsInt bounds = new BoundsInt(min, size);
 
             BoxFill(gridLayout, brushTarget, bounds);
+
+            if(!doubleChecking)
+            {
+                doubleChecking = true;
+                Paint(gridLayout, brushTarget, position);
+            }
+            else
+            {
+                doubleChecking = false;
+            }
         }
 
         /// <summary>
@@ -132,38 +139,30 @@ namespace RoomTools.Brushes
 
         private BrushCell SelectRuleCell(GridLayout grid, Transform parent, Vector3Int position, int prevRuleIndex = -1)
         {
-            BrushCell3D cell = null;
-            bool cellChosen = false;
-            for(int i = 0; i < cells3D.Length; i++)
+            RuleBrush3D cell = null;
+            Transform current;
+            RuleMap3D tileLayoutMap = new RuleMap3D();
+            tileLayoutMap.InitializeMap();
+
+            for (int j = 0; j < tileLayoutMap.Length(); j++)
+            {
+
+                current = GetObjectInCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position);
+                tileLayoutMap.AssignRuleByIndex(j,GetRuleTypeFromTransform(current));
+
+                if (current != null && !updatedLocations.Contains(current))
+                {
+                    updatedLocations.Add(current);
+                    BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position, j % 2 == 0 ? j + 1 : j - 1);
+                    PaintCell(grid, position + tileLayoutMap.GetRuleByIndex(j).position, parent, neighborCell);
+                }
+            }
+
+            for (int i = 0; i < cells3D.Length; i++)
             {
                 cell = cells3D[i];
 
-                for(int j = 0; j < cell.ruleMap.Length(); j++)
-                {
-
-                    Transform current = GetObjectInCell(grid, parent, position + cell.ruleMap.GetRuleByIndex(j).position);
-                    if (current != null && !updatedLocations.Contains(current))
-                    {
-                        updatedLocations.Add(current);
-                        BrushCell neighborCell = SelectRuleCell(grid, parent, position + cell.ruleMap.GetRuleByIndex(j).position, j % 2 == 0 ? j + 1 : j - 1);
-                        PaintCell(grid, position + cell.ruleMap.GetRuleByIndex(j).position, parent, neighborCell);
-                    }
-                    if(j == prevRuleIndex)
-                    {
-                        current = parent;
-                    }
-
-                    if(!CompareNeighborToRule(current, cell.ruleMap.GetRuleByIndex(j)))
-                    {
-                        break;
-                    }
-                    else if(j == cell.ruleMap.Length() - 1)
-                    {
-                        cellChosen = true;
-                    }
-                }
-
-                if (cellChosen)
+                if (tileLayoutMap.CompareRuleMap(cell.ruleMap))
                 {
                     break;
                 }
@@ -172,27 +171,18 @@ namespace RoomTools.Brushes
             return cell;
         }
 
-        private bool CompareNeighborToRule(Transform neighbor, Rule3D rule)
+        private RuleType GetRuleTypeFromTransform(Transform neighbor)
         {
-            bool result = false;
-
-            if (rule.type == RuleType.None)
+            if(neighbor == null)
             {
-                result = true;
+                return RuleType.Vacant;
             }
-
-            if (neighbor == null && rule.type == RuleType.Vacant)
+            else
             {
-                result = true;
+                return RuleType.Occupied;
             }
-
-            if (neighbor != null && rule.type == RuleType.Occupied)
-            {
-                result =  true;
-            }
-
-            return result;
         }
+
 
         /// <summary>
         /// Purpose: paint tiles to tilemap
@@ -243,6 +233,7 @@ namespace RoomTools.Brushes
             instance.transform.localRotation = orientation;
             instance.transform.localScale = scale;
             instance.transform.Translate(offset);
+
         }
 
         /// <summary>

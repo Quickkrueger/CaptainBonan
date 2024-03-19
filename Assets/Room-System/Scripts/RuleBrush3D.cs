@@ -4,20 +4,21 @@ using UnityEditor;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.InputSystem.EnhancedTouch;
+using UnityEngine.Tilemaps;
 using UnityEngine.UIElements;
 using static UnityEditor.Tilemaps.GameObjectBrush;
 namespace RoomTools.Brushes
 {
     [System.Serializable]
-    public class BrushCell3D : BrushCell
+    public class RuleBrush3D : BrushCell
     {
         public RuleMap3D ruleMap;
 
-        public BrushCell3D() : base()
+        public RuleBrush3D() : base()
         {
 
             ruleMap = new RuleMap3D();
-            InitializeMap();
+            ruleMap.InitializeMap();
             scale = Vector3.one;
             orientation = Quaternion.identity;
             offset = Vector3.zero; 
@@ -25,17 +26,7 @@ namespace RoomTools.Brushes
 
         }
 
-        private void InitializeMap()
-        {
-                ruleMap.north = new Rule3D(new Vector3Int(0, 1, 0));
-                ruleMap.south = new Rule3D(new Vector3Int(0, -1, 0));
-                ruleMap.east = new Rule3D(new Vector3Int(1, 0, 0));
-                ruleMap.west = new Rule3D(new Vector3Int(-1, 0, 0));
-                ruleMap.northeast = new Rule3D(new Vector3Int(1, 1, 0));
-                ruleMap.northwest = new Rule3D(new Vector3Int(-1, 1, 0));
-                ruleMap.southeast = new Rule3D(new Vector3Int(1, -1, 0));
-                ruleMap.southwest = new Rule3D(new Vector3Int(-1, -1, 0));
-        }
+        
     }
 
     [System.Serializable]
@@ -49,6 +40,18 @@ namespace RoomTools.Brushes
         public Rule3D southeast;
         public Rule3D northwest;
         public Rule3D northeast;
+
+        public void InitializeMap()
+        {
+            north = new Rule3D(new Vector3Int(0, 1, 0));
+            south = new Rule3D(new Vector3Int(0, -1, 0));
+            east = new Rule3D(new Vector3Int(1, 0, 0));
+            west = new Rule3D(new Vector3Int(-1, 0, 0));
+            northeast = new Rule3D(new Vector3Int(1, 1, 0));
+            northwest = new Rule3D(new Vector3Int(-1, 1, 0));
+            southeast = new Rule3D(new Vector3Int(1, -1, 0));
+            southwest = new Rule3D(new Vector3Int(-1, -1, 0));
+        }
 
         public int Length()
         {
@@ -80,7 +83,57 @@ namespace RoomTools.Brushes
                     
             }
         }
-        
+
+        public void AssignRuleByIndex(int i, RuleType type)
+        {
+            switch (i)
+            {
+                case 0:
+                    north.type = type;
+                    break;
+                case 1:
+                    south.type = type;
+                    break;
+                case 2:
+                    east.type = type;
+                    break;
+                case 3:
+                    west.type = type;
+                    break;
+                case 4:
+                    southwest.type = type;
+                    break;
+                case 5:
+                    northeast.type = type;
+                    break;
+                case 6:
+                    northwest.type = type;
+                    break;
+                case 7:
+                    southeast.type = type;
+                    break;
+                default:
+                    throw new System.ArgumentOutOfRangeException();
+
+            }
+        }
+
+        public bool CompareRuleMap(RuleMap3D other)
+        {
+            bool result = true;
+
+            for (int i = 0; i < Length(); i++)
+            {
+                if(other.GetRuleByIndex(i).type != GetRuleByIndex(i).type & other.GetRuleByIndex(i).type != RuleType.None)
+                {
+                    result = false; 
+                    break;
+                }
+            }
+
+            return result;
+        }
+
 
     }
 
