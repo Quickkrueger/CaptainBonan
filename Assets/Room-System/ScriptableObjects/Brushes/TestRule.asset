@@ -307,6 +307,36 @@ MonoBehaviour:
     ruleMap:
       north:
         position: {x: 0, y: 1, z: 0}
+        type: 1
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 702899300067918942, guid: 9fea3e698bfa215429e371a3fb658a9f,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
         type: 2
       south:
         position: {x: 0, y: -1, z: 0}
@@ -329,7 +359,37 @@ MonoBehaviour:
       northeast:
         position: {x: 1, y: 1, z: 0}
         type: 0
-  - m_GameObject: {fileID: 702899300067918942, guid: 9fea3e698bfa215429e371a3fb658a9f,
+  - m_GameObject: {fileID: 6176554043267515765, guid: 61b7ed5976ee6f3498b0e562f162b424,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 1
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 7600533254987332710, guid: 8a584298816e8c44a8e7925df45aed81,
       type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
@@ -340,7 +400,97 @@ MonoBehaviour:
         type: 1
       south:
         position: {x: 0, y: -1, z: 0}
+        type: 2
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 720585108031881741, guid: bd0063f2a01b9184f99c3dda0b199d09,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 2
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 2
+      west:
+        position: {x: -1, y: 0, z: 0}
         type: 1
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 5912498988999819163, guid: e3b1fbcc4202c8b44a99bc01d250f45e,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 2
+      east:
+        position: {x: 1, y: 0, z: 0}
+        type: 1
+      west:
+        position: {x: -1, y: 0, z: 0}
+        type: 2
+      southwest:
+        position: {x: -1, y: -1, z: 0}
+        type: 0
+      southeast:
+        position: {x: 1, y: -1, z: 0}
+        type: 0
+      northwest:
+        position: {x: -1, y: 1, z: 0}
+        type: 0
+      northeast:
+        position: {x: 1, y: 1, z: 0}
+        type: 0
+  - m_GameObject: {fileID: 8283381358074522348, guid: a82d341eeb2087649b8a5e4012eee9c3,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 0}
+    ruleMap:
+      north:
+        position: {x: 0, y: 1, z: 0}
+        type: 2
+      south:
+        position: {x: 0, y: -1, z: 0}
+        type: 2
       east:
         position: {x: 1, y: 0, z: 0}
         type: 2
@@ -367,16 +517,16 @@ MonoBehaviour:
     ruleMap:
       north:
         position: {x: 0, y: 1, z: 0}
-        type: 2
+        type: 0
       south:
         position: {x: 0, y: -1, z: 0}
-        type: 2
+        type: 0
       east:
         position: {x: 1, y: 0, z: 0}
-        type: 2
+        type: 0
       west:
         position: {x: -1, y: 0, z: 0}
-        type: 2
+        type: 0
       southwest:
         position: {x: -1, y: -1, z: 0}
         type: 0
