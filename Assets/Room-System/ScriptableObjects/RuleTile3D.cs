@@ -148,22 +148,12 @@ namespace RoomTools.Brushes
             {
 
                 current = GetObjectInCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position);
-
-                if (current != null && current.gameObject.name.Contains("Roof"))
-                {
-                    current = null;
-                }
                 tileLayoutMap.AssignRuleByIndex(j,GetRuleTypeFromTransform(current));
 
                 if (current != null && !updatedLocations.Contains(current))
                 {
                     updatedLocations.Add(current);
                     BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position, j % 2 == 0 ? j + 1 : j - 1);
-                    PaintCell(grid, position + tileLayoutMap.GetRuleByIndex(j).position, parent, neighborCell);
-                }
-                else if(current == null && j != prevRuleIndex)
-                {
-                    BrushCell neighborCell = cells3D[cells3D.Length - 1];
                     PaintCell(grid, position + tileLayoutMap.GetRuleByIndex(j).position, parent, neighborCell);
                 }
             }
