@@ -11,13 +11,13 @@ using UnityEngine;
 namespace RoomTools.Brushes
 {
 
-    [CreateAssetMenu(fileName = "New RuleTile3D", menuName = "3D/Tilemap/RuleTile3D", order = 0)]
-    [CustomGridBrush(false, true, false, "RuleTile3D")]
-    public class RuleTile3D : GameObjectBrush
+    [CreateAssetMenu(fileName = "New RuleBrush3D", menuName = "3D/Tilemap/RuleBrush3D", order = 0)]
+    [CustomGridBrush(false, true, false, "RuleBrush3D")]
+    public class RuleBrush3D : GameObjectBrush
     {
 
         [SerializeField]
-        public RuleBrush3D[] cells3D;
+        public RuleTile3D[] cells3D;
         private List<Transform> updatedLocations;
         private bool doubleChecking = false;
 
@@ -30,7 +30,7 @@ namespace RoomTools.Brushes
 
             if (cells3D == null)
             {
-                cells3D = new RuleBrush3D[0];
+                cells3D = new RuleTile3D[0];
             }
         }
 
@@ -43,7 +43,7 @@ namespace RoomTools.Brushes
 
             if (cells3D == null)
             {
-                cells3D = new RuleBrush3D[0];
+                cells3D = new RuleTile3D[0];
             }
         }
 
@@ -54,6 +54,25 @@ namespace RoomTools.Brushes
         /// <param name="brushTarget">the gameobject represented location in the grid</param>
         /// <param name="position">the position in the grid</param>
         public override void Erase(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
+        {
+            updatedLocations.Clear();
+            CallErase(gridLayout, brushTarget, position);
+
+            SelectRuleCell(gridLayout, brushTarget.transform, position);
+
+            if (!doubleChecking)
+            {
+                doubleChecking = true;
+                Erase(gridLayout, brushTarget, position);
+            }
+            else
+            {
+                doubleChecking = false;
+            }
+            
+        }
+
+        private void CallErase(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
         {
             if (brushTarget.layer == 31)
             {
@@ -109,7 +128,7 @@ namespace RoomTools.Brushes
 
             if (existingGO != null && existingGO.gameObject.name != cell.gameObject.name)
             {
-                Erase(grid, parent.gameObject, position);
+                CallErase(grid, parent.gameObject, position);
             }
 
             if (existingGO == null)
@@ -137,9 +156,9 @@ namespace RoomTools.Brushes
             }
         }
 
-        private BrushCell SelectRuleCell(GridLayout grid, Transform parent, Vector3Int position, int prevRuleIndex = -1)
+        private BrushCell SelectRuleCell(GridLayout grid, Transform parent, Vector3Int position)
         {
-            RuleBrush3D cell = null;
+            RuleTile3D cell = null;
             Transform current;
             RuleMap3D tileLayoutMap = new RuleMap3D();
             tileLayoutMap.InitializeMap();
@@ -153,7 +172,7 @@ namespace RoomTools.Brushes
                 if (current != null && !updatedLocations.Contains(current))
                 {
                     updatedLocations.Add(current);
-                    BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position, j % 2 == 0 ? j + 1 : j - 1);
+                    BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position);
                     PaintCell(grid, position + tileLayoutMap.GetRuleByIndex(j).position, parent, neighborCell);
                 }
             }
@@ -280,11 +299,11 @@ namespace RoomTools.Brushes
     }
 
 
-    [CustomEditor(typeof(RuleTile3D)), CanEditMultipleObjects]
+    [CustomEditor(typeof(RuleBrush3D)), CanEditMultipleObjects]
     public class RuleTile3DEditor : Editor
     {
         Vector2 scrollPosition = Vector2.zero;
-        RuleTile3D _instance;
+        RuleBrush3D _instance;
         //List<BrushCell3D> _validCells;
         SerializedObject _target;
         SerializedProperty _cells3D;
@@ -296,7 +315,7 @@ namespace RoomTools.Brushes
         /// 
         private void OnEnable()
         {
-            _instance = target as RuleTile3D;
+            _instance = target as RuleBrush3D;
             //_validCells = new List<BrushCell3D>(_instance.cells3D);
             //_currentCell = _instance.GetCurrentCell();
             _target = new SerializedObject(_instance);
@@ -309,24 +328,6 @@ namespace RoomTools.Brushes
             GUIStyle brushTexttStyle = new GUIStyle();
             Color[] pixels;
             _target.Update();
-
-            //for(int i = 0; i < _instance.cells3D.Length; i++)
-            //{
-            //    if (!_validCells.Contains(_instance.cells3D[i]) && _instance.cells3D[i].gameObject != null)
-            //    {
-            //        _validCells.Add(_instance.cells3D[i]);
-            //    }
-            //}
-
-
-
-            //for (int i = _validCells.Count - 1; i >= 0; i--)
-            //{
-            //    if (_validCells[i].gameObject == null || !_instance.cells3D.Contains(_validCells[i]))
-            //    {
-            //        _validCells.Remove(_validCells[i]);
-            //    }
-            //}
 
             listStyle.normal.background = Texture2D.blackTexture;
             brushTexttStyle.fixedWidth = 300f;
@@ -341,61 +342,6 @@ namespace RoomTools.Brushes
 
             listStyle.normal.background.SetPixels(pixels);
             listStyle.normal.background.Apply();
-
-            //string currentCellName = "";
-
-
-            //if (_currentCell != null && _currentCell.gameObject != null)
-            //{
-            //    currentCellName = _currentCell.gameObject.name;
-            //}
-
-            //EditorGUILayout.PrefixLabel($"Selected Brush: {currentCellName.ToUpper()}", brushTexttStyle);
-            //EditorGUILayout.Space();
-            //_instance.replaceTiles = EditorGUILayout.ToggleLeft("Replace tiles with current brush.", _instance.replaceTiles);
-            //EditorGUILayout.Space();
-
-
-            //scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, listStyle, GUILayout.Width(EditorGUIUtility.currentViewWidth - 10), GUILayout.Height(300), GUILayout.ExpandWidth(true));
-
-
-            //for (int i = 0; i < _validCells.Count; i++)
-            //{
-            //    int widthMod = 1;
-            //    if (_instance.cells3D[i].gameObject != null)
-            //    {
-
-            //        Texture2D assetPreview = AssetPreview.GetAssetPreview(_validCells[i].gameObject);
-            //        GUIContent content = new GUIContent((assetPreview), _validCells[i].gameObject.name);
-
-
-            //        if (assetPreview != null && (int)assetPreview.width > 0)
-            //        {
-            //            widthMod = (int)EditorGUIUtility.currentViewWidth / (int)assetPreview.width;
-            //        }
-
-            //        if (widthMod < 1)
-            //        {
-            //            widthMod = 1;
-            //        }
-
-            //        if (i % widthMod == 0)
-            //        {
-            //            EditorGUILayout.BeginHorizontal();
-            //        }
-
-            //        if (GUILayout.Button(content, GUILayout.Width(assetPreview != null ? assetPreview.width : 150)))
-            //        {
-            //            _instance.SetCurrentCell(_instance.cells3D[i]);
-            //        }
-
-            //        if (i % widthMod == widthMod - 1 || i == _validCells.Count - 1)
-            //        {
-            //            EditorGUILayout.EndHorizontal();
-            //        }
-            //    }
-            //}
-            //EditorGUILayout.EndScrollView();
 
 
             EditorGUILayout.PropertyField(_cells3D, true);

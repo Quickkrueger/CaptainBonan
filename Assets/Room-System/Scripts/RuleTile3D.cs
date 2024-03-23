@@ -10,11 +10,11 @@ using static UnityEditor.Tilemaps.GameObjectBrush;
 namespace RoomTools.Brushes
 {
     [System.Serializable]
-    public class RuleBrush3D : BrushCell
+    public class RuleTile3D : BrushCell
     {
         public RuleMap3D ruleMap;
 
-        public RuleBrush3D() : base()
+        public RuleTile3D() : base()
         {
 
             ruleMap = new RuleMap3D();
