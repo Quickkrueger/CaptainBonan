@@ -60,14 +60,14 @@ public class TileBrush3D : GameObjectBrush
         }
     }
 
-    
-    /// <summary>
-    /// Purpose: Begin the "paint" process
-    /// </summary>
-    /// <param name="gridLayout">a valid grid or child of a grid</param>
-    /// <param name="brushTarget">the gameobject represented location in the grid</param>
-    /// <param name="position">the position in the grid</param>
-    public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
+
+        /// <summary>
+        /// Purpose: Begin the "paint" process
+        /// </summary>
+        /// <param name="gridLayout">a valid grid or child of a grid</param>
+        /// <param name="brushTarget">the gameobject represented location in the grid</param>
+        /// <param name="position">the position in the grid</param>
+        public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
         {
             Vector3Int min = position - pivot;
             BoundsInt bounds = new BoundsInt(min, size);

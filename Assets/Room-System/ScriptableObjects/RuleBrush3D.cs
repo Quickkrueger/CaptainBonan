@@ -18,15 +18,10 @@ namespace RoomTools.Brushes
 
         [SerializeField]
         public RuleTile3D[] cells3D;
-        private List<Transform> updatedLocations;
         private bool doubleChecking = false;
 
         private void OnEnable()
         {
-            if(updatedLocations == null)
-            {
-                updatedLocations = new List<Transform>();
-            }
 
             if (cells3D == null)
             {
@@ -36,10 +31,6 @@ namespace RoomTools.Brushes
 
         private void OnValidate()
         {
-            if (updatedLocations == null)
-            {
-                updatedLocations = new List<Transform>();
-            }
 
             if (cells3D == null)
             {
@@ -55,7 +46,6 @@ namespace RoomTools.Brushes
         /// <param name="position">the position in the grid</param>
         public override void Erase(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
         {
-            updatedLocations.Clear();
             CallErase(gridLayout, brushTarget, position);
 
             SelectRuleCell(gridLayout, brushTarget.transform, position);
@@ -95,7 +85,6 @@ namespace RoomTools.Brushes
         /// <param name="position">the position in the grid</param>
         public override void Paint(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
         {
-            updatedLocations.Clear();
             Vector3Int min = position - pivot;
             BoundsInt bounds = new BoundsInt(min, size);
 
@@ -145,6 +134,21 @@ namespace RoomTools.Brushes
         /// <param name="position">the position in the grid</param>
         public override void BoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
+            CallBoxFill(gridLayout, brushTarget, position);
+
+            if (!doubleChecking)
+            {
+                doubleChecking = true;
+                BoxFill(gridLayout, brushTarget, position);
+            }
+            else
+            {
+                doubleChecking= false;
+            }
+        }
+
+        private void CallBoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
+        {
             GetGrid(ref gridLayout, ref brushTarget);
 
             foreach (Vector3Int location in position.allPositionsWithin)
@@ -156,7 +160,7 @@ namespace RoomTools.Brushes
             }
         }
 
-        private BrushCell SelectRuleCell(GridLayout grid, Transform parent, Vector3Int position)
+        private BrushCell SelectRuleCell(GridLayout grid, Transform parent, Vector3Int position, bool isNeighbor = false)
         {
             RuleTile3D cell = null;
             Transform current;
@@ -169,10 +173,9 @@ namespace RoomTools.Brushes
                 current = GetObjectInCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position);
                 tileLayoutMap.AssignRuleByIndex(j,GetRuleTypeFromTransform(current));
 
-                if (current != null && !updatedLocations.Contains(current))
+                if (current != null && !isNeighbor)
                 {
-                    updatedLocations.Add(current);
-                    BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position);
+                    BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position, true);
                     PaintCell(grid, position + tileLayoutMap.GetRuleByIndex(j).position, parent, neighborCell);
                 }
             }
