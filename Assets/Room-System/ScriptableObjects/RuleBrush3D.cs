@@ -19,9 +19,20 @@ namespace RoomTools.Brushes
         [SerializeField]
         public RuleTile3D[] cells3D;
         private bool doubleChecking = false;
+        private List<Transform> updatedLocations;
+        private static Dictionary<Vector3Int, Transform> childPositions;
 
         private void OnEnable()
         {
+            if (updatedLocations == null)
+            {
+                updatedLocations = new List<Transform>();
+            }
+
+            if(childPositions == null)
+            {
+                childPositions = new Dictionary<Vector3Int, Transform>();
+            }
 
             if (cells3D == null)
             {
@@ -31,6 +42,10 @@ namespace RoomTools.Brushes
 
         private void OnValidate()
         {
+            if (updatedLocations == null)
+            {
+                updatedLocations = new List<Transform>();
+            }
 
             if (cells3D == null)
             {
@@ -46,6 +61,7 @@ namespace RoomTools.Brushes
         /// <param name="position">the position in the grid</param>
         public override void Erase(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
         {
+            updatedLocations.Clear();
             CallErase(gridLayout, brushTarget, position);
 
             SelectRuleCell(gridLayout, brushTarget.transform, position);
@@ -72,6 +88,7 @@ namespace RoomTools.Brushes
             Transform erased = GetObjectInCell(gridLayout, brushTarget.transform, new Vector3Int(position.x, position.y, 0));
             if (erased != null)
             {
+                childPositions.Remove(position);
                 Undo.DestroyObjectImmediate(erased.gameObject);
             }
         }
@@ -88,7 +105,9 @@ namespace RoomTools.Brushes
             Vector3Int min = position - pivot;
             BoundsInt bounds = new BoundsInt(min, size);
 
-            BoxFill(gridLayout, brushTarget, bounds);
+            updatedLocations.Clear();
+
+            CallBoxFill(gridLayout, brushTarget, bounds);
 
             if(!doubleChecking)
             {
@@ -134,6 +153,7 @@ namespace RoomTools.Brushes
         /// <param name="position">the position in the grid</param>
         public override void BoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
+            updatedLocations.Clear();
             CallBoxFill(gridLayout, brushTarget, position);
 
             if (!doubleChecking)
@@ -155,8 +175,13 @@ namespace RoomTools.Brushes
             {
                 Vector3Int local = location - position.min;
                 Transform parent = brushTarget != null ? brushTarget.transform : null;
-                BrushCell cell = SelectRuleCell(gridLayout, parent, location);
-                PaintCell(gridLayout, location, parent, cell);
+                Transform containsObject = GetObjectInCell(gridLayout, parent, location);
+
+                if (!updatedLocations.Contains(containsObject))
+                {
+                    BrushCell cell = SelectRuleCell(gridLayout, parent, location);
+                    PaintCell(gridLayout, location, parent, cell);
+                }
             }
         }
 
@@ -173,8 +198,9 @@ namespace RoomTools.Brushes
                 current = GetObjectInCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position);
                 tileLayoutMap.AssignRuleByIndex(j,GetRuleTypeFromTransform(current));
 
-                if (current != null && !isNeighbor)
+                if (current != null && !isNeighbor && !updatedLocations.Contains(current))
                 {
+                    updatedLocations.Add(current);
                     BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position, true);
                     PaintCell(grid, position + tileLayoutMap.GetRuleByIndex(j).position, parent, neighborCell);
                 }
@@ -239,6 +265,8 @@ namespace RoomTools.Brushes
                 }
             }
 
+            childPositions.Add(position, instance.transform);
+
             Undo.RegisterCreatedObjectUndo(instance, "Paint GameObject");
 
             var cellSize = grid.cellSize;
@@ -282,19 +310,28 @@ namespace RoomTools.Brushes
         /// <param name="position">the position in the grid</param>
         private static Transform GetObjectInCell(GridLayout grid, Transform parent, Vector3Int position)
         {
-            int childCount = parent.childCount;
-            Vector3 min = grid.LocalToWorld(grid.CellToLocalInterpolated(position - Vector3Int.one / 2)) + Vector3.down * 3;
-            Vector3 max = grid.LocalToWorld(grid.CellToLocalInterpolated(position + Vector3Int.one + Vector3Int.one / 2)) + Vector3.up * 6;
-            Bounds bounds = new Bounds((max + min) * 0.5f, max - min);
-
-            for (int i = 0; i < childCount; i++)
+            if (childPositions.ContainsKey(position) && childPositions[position] != null)
             {
-                Transform child = parent.GetChild(i);
-                if (bounds.Contains(child.position))
-                {
-                    return child;
-                }
+                return childPositions[position];
             }
+            else if(childPositions.ContainsKey(position))
+            {
+                childPositions.Remove(position);
+            }
+            //int childCount = parent.childCount;
+            //Vector3 min = grid.LocalToWorld(grid.CellToLocalInterpolated(position - Vector3Int.one / 2)) + Vector3.down * 3;
+            //Vector3 max = grid.LocalToWorld(grid.CellToLocalInterpolated(position + Vector3Int.one + Vector3Int.one / 2)) + Vector3.up * 6;
+            //Bounds bounds = new Bounds((max + min) * 0.5f, max - min);
+
+
+            //for (int i = 0; i < childCount; i++)
+            //{
+            //    Transform child = parent.GetChild(i);
+            //    if (bounds.Contains(child.position))
+            //    {
+            //        return child;
+            //    }
+            //}
 
             return null;
         }
