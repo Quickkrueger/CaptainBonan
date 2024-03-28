@@ -20,18 +20,12 @@ namespace RoomTools.Brushes
         public RuleTile3D[] cells3D;
         private bool doubleChecking = false;
         private List<Transform> updatedLocations;
-        private static Dictionary<Vector3Int, Transform> childPositions;
 
         private void OnEnable()
         {
             if (updatedLocations == null)
             {
                 updatedLocations = new List<Transform>();
-            }
-
-            if(childPositions == null)
-            {
-                childPositions = new Dictionary<Vector3Int, Transform>();
             }
 
             if (cells3D == null)
@@ -85,10 +79,10 @@ namespace RoomTools.Brushes
                 return;
             }
 
-            Transform erased = GetObjectInCell(gridLayout, brushTarget.transform, new Vector3Int(position.x, position.y, 0));
+            Transform erased = brushTarget.GetComponent<TileTracker>().GetObjectInCell(gridLayout, brushTarget.transform, new Vector3Int(position.x, position.y, 0), m_Anchor);
             if (erased != null)
             {
-                childPositions.Remove(position);
+                brushTarget.GetComponent<TileTracker>().RemoveChild(gridLayout, position, m_Anchor);
                 Undo.DestroyObjectImmediate(erased.gameObject);
             }
         }
@@ -132,7 +126,7 @@ namespace RoomTools.Brushes
             if (cell.gameObject == null)
                 return;
 
-            Transform existingGO = GetObjectInCell(grid, parent, position);
+            Transform existingGO = parent.GetComponent<TileTracker>().GetObjectInCell(grid, parent, position, m_Anchor);
 
             if (existingGO != null && existingGO.gameObject.name != cell.gameObject.name)
             {
@@ -175,7 +169,11 @@ namespace RoomTools.Brushes
             {
                 Vector3Int local = location - position.min;
                 Transform parent = brushTarget != null ? brushTarget.transform : null;
-                Transform containsObject = GetObjectInCell(gridLayout, parent, location);
+                if(!brushTarget.TryGetComponent<TileTracker>(out TileTracker tracker))
+                {
+                    return;
+                }
+                Transform containsObject = tracker.GetObjectInCell(gridLayout, parent, location, m_Anchor);
 
                 if (!updatedLocations.Contains(containsObject))
                 {
@@ -185,7 +183,7 @@ namespace RoomTools.Brushes
             }
         }
 
-        private BrushCell SelectRuleCell(GridLayout grid, Transform parent, Vector3Int position, bool isNeighbor = false)
+        private BrushCell SelectRuleCell(GridLayout grid, Transform parent, Vector3Int position, bool isNeighbor = false, int prevIndex = -1)
         {
             RuleTile3D cell = null;
             Transform current;
@@ -195,13 +193,13 @@ namespace RoomTools.Brushes
             for (int j = 0; j < tileLayoutMap.Length(); j++)
             {
 
-                current = GetObjectInCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position);
-                tileLayoutMap.AssignRuleByIndex(j,GetRuleTypeFromTransform(current));
+                current = parent.GetComponent<TileTracker>().GetObjectInCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position, m_Anchor);
+                tileLayoutMap.AssignRuleByIndex(j, GetRuleTypeFromTransform(current));
 
                 if (current != null && !isNeighbor && !updatedLocations.Contains(current))
                 {
                     updatedLocations.Add(current);
-                    BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position, true);
+                    BrushCell neighborCell = SelectRuleCell(grid, parent, position + tileLayoutMap.GetRuleByIndex(j).position, true, j % 2 == 0 ? j + 1 : j - 1);
                     PaintCell(grid, position + tileLayoutMap.GetRuleByIndex(j).position, parent, neighborCell);
                 }
             }
@@ -265,7 +263,7 @@ namespace RoomTools.Brushes
                 }
             }
 
-            childPositions.Add(position, instance.transform);
+            
 
             Undo.RegisterCreatedObjectUndo(instance, "Paint GameObject");
 
@@ -283,6 +281,8 @@ namespace RoomTools.Brushes
             instance.transform.localRotation = orientation;
             instance.transform.localScale = scale;
             instance.transform.Translate(offset);
+
+            parent.GetComponent<TileTracker>().AddChild(grid, instance.transform, position, anchor);
 
         }
 
@@ -308,43 +308,17 @@ namespace RoomTools.Brushes
         /// <param name="gridLayout">a valid grid or child of a grid</param>
         /// <param name="brushTarget">the gameobject represented location in the grid</param>
         /// <param name="position">the position in the grid</param>
-        private static Transform GetObjectInCell(GridLayout grid, Transform parent, Vector3Int position)
-        {
-            if (childPositions.ContainsKey(position) && childPositions[position] != null)
-            {
-                return childPositions[position];
-            }
-            else if(childPositions.ContainsKey(position))
-            {
-                childPositions.Remove(position);
-            }
-            //int childCount = parent.childCount;
-            //Vector3 min = grid.LocalToWorld(grid.CellToLocalInterpolated(position - Vector3Int.one / 2)) + Vector3.down * 3;
-            //Vector3 max = grid.LocalToWorld(grid.CellToLocalInterpolated(position + Vector3Int.one + Vector3Int.one / 2)) + Vector3.up * 6;
-            //Bounds bounds = new Bounds((max + min) * 0.5f, max - min);
+        
 
-
-            //for (int i = 0; i < childCount; i++)
-            //{
-            //    Transform child = parent.GetChild(i);
-            //    if (bounds.Contains(child.position))
-            //    {
-            //        return child;
-            //    }
-            //}
-
-            return null;
-        }
 
     }
 
 
     [CustomEditor(typeof(RuleBrush3D)), CanEditMultipleObjects]
-    public class RuleTile3DEditor : Editor
+    public class RuleBrush3DEditor : Editor
     {
         Vector2 scrollPosition = Vector2.zero;
         RuleBrush3D _instance;
-        //List<BrushCell3D> _validCells;
         SerializedObject _target;
         SerializedProperty _cells3D;
         //BrushCell3D _currentCell;
@@ -356,32 +330,13 @@ namespace RoomTools.Brushes
         private void OnEnable()
         {
             _instance = target as RuleBrush3D;
-            //_validCells = new List<BrushCell3D>(_instance.cells3D);
-            //_currentCell = _instance.GetCurrentCell();
             _target = new SerializedObject(_instance);
             _cells3D = _target.FindProperty("cells3D");
         }
 
         public override void OnInspectorGUI()
         {
-            GUIStyle listStyle = new GUIStyle();
-            GUIStyle brushTexttStyle = new GUIStyle();
-            Color[] pixels;
             _target.Update();
-
-            listStyle.normal.background = Texture2D.blackTexture;
-            brushTexttStyle.fixedWidth = 300f;
-            brushTexttStyle.stretchWidth = true;
-
-            pixels = listStyle.normal.background.GetPixels();
-
-            for (int i = 0; i < pixels.Length; i++)
-            {
-                pixels[i] = new Color(0.25f, 0.25f, 0.25f, 1f);
-            }
-
-            listStyle.normal.background.SetPixels(pixels);
-            listStyle.normal.background.Apply();
 
 
             EditorGUILayout.PropertyField(_cells3D, true);

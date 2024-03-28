@@ -12,53 +12,53 @@ using System.Linq;
 namespace RoomTools.Brushes
 {
 
-[CreateAssetMenu(fileName = "New TileBrush3D", menuName = "3D/Tilemap/TileBrush3D", order = 0)]
-[CustomGridBrush(false, true, false, "TileBrush3D")]
-public class TileBrush3D : GameObjectBrush 
-{
-
-    private BrushCell currentCell;
-    [HideInInspector]
-    public bool replaceTiles = false;
-
-
-    /// <summary>
-    /// Purpose: Get the current brush cell
-    /// </summary>
-    /// <returns>the current brush cell</returns>
-    public BrushCell GetCurrentCell( )
+    [CreateAssetMenu(fileName = "New TileBrush3D", menuName = "3D/Tilemap/TileBrush3D", order = 0)]
+    [CustomGridBrush(false, true, false, "TileBrush3D")]
+    public class TileBrush3D : GameObjectBrush
     {
-        return currentCell;
-    }
 
-    /// <summary>
-    /// Purpose: Set the current brush cell
-    /// </summary>
-    /// <param name="newCell">a valid brush cell</param>
-    public void SetCurrentCell(BrushCell newCell)
-    {
-        currentCell = newCell;
-    }
+        private BrushCell currentCell;
+        [HideInInspector]
+        public bool replaceTiles = false;
 
-    /// <summary>
-    /// Purpose: Erase tiles from the tilemap
-    /// </summary>
-    /// <param name="gridLayout">a valid grid or child of a grid</param>
-    /// <param name="brushTarget">the gameobject represented location in the grid</param>
-    /// <param name="position">the position in the grid</param>
-    public override void Erase(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
-    {
-        if(brushTarget.layer == 31)
+
+        /// <summary>
+        /// Purpose: Get the current brush cell
+        /// </summary>
+        /// <returns>the current brush cell</returns>
+        public BrushCell GetCurrentCell()
         {
-            return;
+            return currentCell;
         }
 
-        Transform erased = GetObjectInCell(gridLayout, brushTarget.transform, new Vector3Int(position.x, position.y, 0));
-        if(erased != null)
+        /// <summary>
+        /// Purpose: Set the current brush cell
+        /// </summary>
+        /// <param name="newCell">a valid brush cell</param>
+        public void SetCurrentCell(BrushCell newCell)
         {
-            Undo.DestroyObjectImmediate(erased.gameObject);
+            currentCell = newCell;
         }
-    }
+
+        /// <summary>
+        /// Purpose: Erase tiles from the tilemap
+        /// </summary>
+        /// <param name="gridLayout">a valid grid or child of a grid</param>
+        /// <param name="brushTarget">the gameobject represented location in the grid</param>
+        /// <param name="position">the position in the grid</param>
+        public override void Erase(GridLayout gridLayout, GameObject brushTarget, Vector3Int position)
+        {
+            if (brushTarget.layer == 31)
+            {
+                return;
+            }
+
+            Transform erased = brushTarget.GetComponent<TileTracker>().GetObjectInCell(gridLayout, brushTarget.transform, new Vector3Int(position.x, position.y, 0), m_Anchor);
+            if (erased != null)
+            {
+                brushTarget.GetComponent<TileTracker>().RemoveChild(gridLayout, position, m_Anchor);
+            }
+        }
 
 
         /// <summary>
@@ -87,9 +87,9 @@ public class TileBrush3D : GameObjectBrush
             if (cell.gameObject == null)
                 return;
 
-            Transform existingGO = GetObjectInCell(grid, parent, position);
+            Transform existingGO = parent.GetComponent<TileTracker>().GetObjectInCell(grid, parent, position, m_Anchor);
 
-            if(replaceTiles && existingGO != null && existingGO.gameObject.name != cell.gameObject.name)
+            if (replaceTiles && existingGO != null && existingGO.gameObject.name != cell.gameObject.name)
             {
                 Erase(grid, parent.gameObject, position);
             }
@@ -109,7 +109,7 @@ public class TileBrush3D : GameObjectBrush
         public override void BoxFill(GridLayout gridLayout, GameObject brushTarget, BoundsInt position)
         {
             GetGrid(ref gridLayout, ref brushTarget);
-            
+
             foreach (Vector3Int location in position.allPositionsWithin)
             {
                 Vector3Int local = location - position.min;
@@ -137,7 +137,7 @@ public class TileBrush3D : GameObjectBrush
             GameObject instance;
             if (PrefabUtility.IsPartOfPrefabAsset(go))
             {
-                instance = (GameObject) PrefabUtility.InstantiatePrefab(go, parent != null ? parent.root.gameObject.scene : SceneManager.GetActiveScene());
+                instance = (GameObject)PrefabUtility.InstantiatePrefab(go, parent != null ? parent.root.gameObject.scene : SceneManager.GetActiveScene());
                 instance.transform.parent = parent;
             }
             else
@@ -167,8 +167,10 @@ public class TileBrush3D : GameObjectBrush
             instance.transform.localRotation = orientation;
             instance.transform.localScale = scale;
             instance.transform.Translate(offset);
+
+            parent.GetComponent<TileTracker>().AddChild(grid, instance.transform, position, anchor);
         }
-        
+
         /// <summary>
         /// Purpose: Get active grid
         /// </summary>
@@ -185,39 +187,21 @@ public class TileBrush3D : GameObjectBrush
             }
         }
 
-    /// <summary>
-    /// Purpose: Find any existing objects in a tile location
-    /// </summary>
-    /// <param name="gridLayout">a valid grid or child of a grid</param>
-    /// <param name="brushTarget">the gameobject represented location in the grid</param>
-    /// <param name="position">the position in the grid</param>
-    private static Transform GetObjectInCell(GridLayout grid, Transform parent, Vector3Int position)
-    {
-        int childCount = parent.childCount;
-        Vector3 min = grid.LocalToWorld(grid.CellToLocalInterpolated(position - Vector3Int.one / 2)) + Vector3.down * 3;
-        Vector3 max = grid.LocalToWorld(grid.CellToLocalInterpolated(position + Vector3Int.one + Vector3Int.one / 2)) + Vector3.up * 6;
-        Bounds bounds = new Bounds((max + min) * 0.5f, max - min);
+        /// <summary>
+        /// Purpose: Find any existing objects in a tile location
+        /// </summary>
+        /// <param name="gridLayout">a valid grid or child of a grid</param>
+        /// <param name="brushTarget">the gameobject represented location in the grid</param>
+        /// <param name="position">the position in the grid</param>
 
-        for(int i = 0; i < childCount; i++)
-        {
-            Transform child = parent.GetChild(i);
-            if(bounds.Contains(child.position))
-            {
-                return child;
-            }
-        }
-
-        return null;
     }
 
-}
 
 
 
 
-
-[CustomEditor(typeof(TileBrush3D))]
-public class TileBrush3DEditor : Editor
+    [CustomEditor(typeof(TileBrush3D))]
+    public class TileBrush3DEditor : Editor
     {
         Vector2 scrollPosition = Vector2.zero;
 
@@ -233,7 +217,7 @@ public class TileBrush3DEditor : Editor
             GUIStyle brushTexttStyle = new GUIStyle();
             Color[] pixels;
 
-            for(int i = validCells.Count - 1; i >= 0; i--)
+            for (int i = validCells.Count - 1; i >= 0; i--)
             {
                 if (validCells[i].gameObject == null)
                 {
@@ -247,7 +231,7 @@ public class TileBrush3DEditor : Editor
 
             pixels = listStyle.normal.background.GetPixels();
 
-            for(int i = 0; i < pixels.Length; i++)
+            for (int i = 0; i < pixels.Length; i++)
             {
                 pixels[i] = new Color(0.25f, 0.25f, 0.25f, 1f);
             }
@@ -256,9 +240,9 @@ public class TileBrush3DEditor : Editor
             listStyle.normal.background.Apply();
 
             string currentCellName = "";
-            
 
-            if(currentCell != null && currentCell.gameObject != null)
+
+            if (currentCell != null && currentCell.gameObject != null)
             {
                 currentCellName = currentCell.gameObject.name;
             }
@@ -271,38 +255,38 @@ public class TileBrush3DEditor : Editor
 
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition, listStyle, GUILayout.Width(EditorGUIUtility.currentViewWidth - 10), GUILayout.Height(300), GUILayout.ExpandWidth(true));
 
-            
-            for(int i = 0; i < validCells.Count; i++)
+
+            for (int i = 0; i < validCells.Count; i++)
             {
                 int widthMod = 1;
-                if(tileBrush3DInstance.cells[i].gameObject != null)
+                if (tileBrush3DInstance.cells[i].gameObject != null)
                 {
-                    
+
                     Texture2D assetPreview = AssetPreview.GetAssetPreview(validCells[i].gameObject);
                     GUIContent content = new GUIContent((assetPreview), validCells[i].gameObject.name);
-                    
 
-                    if(assetPreview != null && (int)assetPreview.width > 0)
+
+                    if (assetPreview != null && (int)assetPreview.width > 0)
                     {
                         widthMod = (int)EditorGUIUtility.currentViewWidth / (int)assetPreview.width;
                     }
 
-                    if(widthMod < 1)
+                    if (widthMod < 1)
                     {
                         widthMod = 1;
                     }
 
-                    if(i % widthMod == 0)
+                    if (i % widthMod == 0)
                     {
                         EditorGUILayout.BeginHorizontal();
                     }
 
-                    if(GUILayout.Button(content, GUILayout.Width(assetPreview != null ? assetPreview.width : 150)))
+                    if (GUILayout.Button(content, GUILayout.Width(assetPreview != null ? assetPreview.width : 150)))
                     {
                         tileBrush3DInstance.SetCurrentCell(tileBrush3DInstance.cells[i]);
                     }
 
-                    if(i % widthMod == widthMod - 1 || i == validCells.Count - 1 )
+                    if (i % widthMod == widthMod - 1 || i == validCells.Count - 1)
                     {
                         EditorGUILayout.EndHorizontal();
                     }

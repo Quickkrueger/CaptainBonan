@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c6e5ce64b7a92540bfee223f2388529, type: 3}
+  m_Name: Components
+  m_EditorClassIdentifier: 
+  m_Cells:
+  - m_GameObject: {fileID: 0}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0, z: 0, w: 1}
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Pivot: {x: 0, y: 0, z: 0}
+  m_CanChangeZPosition: 0
+  hiddenGridLayout:
+    cellSize: {x: 1, y: 1, z: 1}
+    cellGap: {x: 0, y: 0, z: 0}
+    cellLayout: 0
+    cellSwizzle: 0
+  hiddenGrid: {fileID: 0}
+  m_Anchor: {x: 0.5, y: 0.5, z: 0}
+  componentCells:
+  - {fileID: 11500000, guid: 2024ac7e1fe3ffb459c63580fad98dbf, type: 3}
+  - {fileID: 11500000, guid: 20a5c41e7e38dd9dd8bf54e89047690d, type: 3}
+  - {fileID: 11500000, guid: 811dfae4d42611944900775db482e295, type: 3}
+  - {fileID: 11500000, guid: e51c0a4be98d34c45b91c75344d432e0, type: 3}
+  - {fileID: 11500000, guid: 37e672f3f902fd14998f03d95b0278aa, type: 3}
+  - {fileID: 11500000, guid: 58d5e8b7848572c41a3b240a02310a16, type: 3}
+  - {fileID: 11500000, guid: 888e00960d8e1104e991316228c0dc79, type: 3}
+  - {fileID: 11500000, guid: 89e2ca4deb05e754b80707184df92a4c, type: 3}
+  - {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18, type: 3}
+  - {fileID: 11500000, guid: cdf0d596a2b1fb945ad6bd49bb1686ff, type: 3}
+  - {fileID: 11500000, guid: 4eaad49b4d6d8db4dbc5dc6c17054ccb, type: 3}
+  - {fileID: 11500000, guid: aee6b365368959e4fa6c4f96dcbfe756, type: 3}
+  - {fileID: 11500000, guid: deea72c879dcffd448eeeb19ceca990e, type: 3}
+  - {fileID: 11500000, guid: 4f8d014bdacc1814eaf21083d2372c3f, type: 3}
+  activeComponentCell: {fileID: 11500000, guid: ba94a6790e623b14f8c7377c86889a18,
+    type: 3}

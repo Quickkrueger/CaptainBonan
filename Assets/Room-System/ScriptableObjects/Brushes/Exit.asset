@@ -10,29 +10,34 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee140d5d3e13c6d0c81386429be0ee57, type: 3}
-  m_Name: Walls
+  m_Name: Exit
   m_EditorClassIdentifier: 
   m_Cells:
-  - m_GameObject: {fileID: 636162112059241802, guid: 12e9076ad0825554c8ec6e2541a4fa87,
+  - m_GameObject: {fileID: 910656528277579938, guid: 4fe868757e4a3744f82cab78264b7d9a,
       type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     m_Orientation: {x: 0, y: 0, z: 0, w: 1}
-  - m_GameObject: {fileID: 3636490622134794953, guid: 7f698f93e57c0fa4db88d6c01e39270e,
+  - m_GameObject: {fileID: 4160982589147080274, guid: a999fa6ee47d5fe409743d48256ad11b,
       type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     m_Orientation: {x: 0, y: 0, z: 0, w: 1}
-  - m_GameObject: {fileID: 4929356655388554416, guid: 54935159e637ec7498cb53814f13156f,
+  - m_GameObject: {fileID: 4160982589147080274, guid: a999fa6ee47d5fe409743d48256ad11b,
       type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
-    m_Orientation: {x: 0, y: 0, z: 0, w: 1}
-  - m_GameObject: {fileID: 700869404693456471, guid: 8195dda32b3993a4fb9169c57e4f58a9,
+    m_Orientation: {x: 0, y: 0.70710677, z: 0, w: 0.70710677}
+  - m_GameObject: {fileID: 4160982589147080274, guid: a999fa6ee47d5fe409743d48256ad11b,
       type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
-    m_Orientation: {x: 0, y: 0, z: 0, w: 1}
+    m_Orientation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  - m_GameObject: {fileID: 4160982589147080274, guid: a999fa6ee47d5fe409743d48256ad11b,
+      type: 3}
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_Scale: {x: 1, y: 1, z: 1}
+    m_Orientation: {x: 0, y: 0.70710677, z: 0, w: -0.70710677}
   m_Size: {x: 1, y: 1, z: 1}
   m_Pivot: {x: 0, y: 0, z: 0}
   m_CanChangeZPosition: 0
@@ -43,4 +48,4 @@ MonoBehaviour:
     cellSwizzle: 0
   hiddenGrid: {fileID: 0}
   m_Anchor: {x: 0.5, y: 0.5, z: 0}
-  replaceTiles: 0
+  replaceTiles: 1

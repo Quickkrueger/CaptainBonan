@@ -9,6 +9,7 @@ public class AltFloorGenerator : MonoBehaviour
     private int numRooms = 0;
     public RoomSetSO roomSet;
     public NavMeshSurface navMeshSurface;
+    public GameObject[] tileAtlasList;
     //public GameObject hallPrefab;
 
     private FloorGrid floorGrid;
@@ -35,7 +36,8 @@ public class AltFloorGenerator : MonoBehaviour
 
         if (startCoord.x != -1 && startCoord.y != -1)
         {
-            floorGrid.FillRoom(startCoord.x, startCoord.y, exRoom.StartRoom, roomSet.startRooms.GetRandomObject(), roomSpacing);
+            int randAtlas = Random.Range(0, tileAtlasList.Length);
+            floorGrid.FillRoom(startCoord.x, startCoord.y, exRoom.StartRoom, roomSet.startRooms.GetRandomObject(), tileAtlasList[randAtlas], roomSpacing);
             numRooms++;
 
             floorGrid.UpdateWeightedRooms(startCoord);
@@ -49,7 +51,8 @@ public class AltFloorGenerator : MonoBehaviour
 
         if (roomCoord.x != -1 && roomCoord.y != -1)
         {
-            floorGrid.FillRoom(roomCoord.x, roomCoord.y, exRoom.Room, roomSet.rooms.GetRandomObject(), roomSpacing);
+            int randAtlas = Random.Range(0, tileAtlasList.Length);
+            floorGrid.FillRoom(roomCoord.x, roomCoord.y, exRoom.Room, roomSet.rooms.GetRandomObject(), tileAtlasList[randAtlas], roomSpacing);
 
             numRooms++;
 
@@ -65,7 +68,8 @@ public class AltFloorGenerator : MonoBehaviour
     private void ChooseEndRoom()
     {
         Vector2Int endCoord = floorGrid.SelectEndRoomByRandom();
-        floorGrid.ReplaceRoom(endCoord, roomSet.endRooms.GetRandomObject(), exRoom.EndRoom);
+        int randAtlas = Random.Range(0, tileAtlasList.Length);
+        floorGrid.ReplaceRoom(endCoord, roomSet.endRooms.GetRandomObject(), tileAtlasList[randAtlas], exRoom.EndRoom);
     }
 
     private void FinalizeRooms()
