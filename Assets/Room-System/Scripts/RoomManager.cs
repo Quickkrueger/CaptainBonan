@@ -197,7 +197,6 @@ public class RoomManager : MonoBehaviour
             }
             combineInstance[i].mesh = _tiles[i].sharedMesh;
             combineInstance[i].transform = _tiles[i].transform.localToWorldMatrix;
-            Destroy(_tiles[i].gameObject);
         }
 
         Mesh combinedMesh = new Mesh();
@@ -208,6 +207,14 @@ public class RoomManager : MonoBehaviour
         mCollider.sharedMesh = combinedMesh;
 
         transform.position = tempPosition;
+
+        for (int i = 0; i < _tiles.Length; ++i)
+        {
+            if (_tiles[i] != null)
+            {
+                Destroy(_tiles[i].gameObject);
+            }
+        }
     }
 
 
