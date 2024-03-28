@@ -103,7 +103,7 @@ public class RoomManager : MonoBehaviour
 
     private void SetEntrances(RoomData roomData)
     {
-        for (int i = 0; i < _tileChangers.Length; i++)
+        for (int i = _tileChangers.Length - 1; i >= 0; i--)
         {
             if (_tileChangers[i].direction != Direction.None && !roomData.CheckForNeighbor((int)_tileChangers[i].direction))
             {
@@ -138,6 +138,11 @@ public class RoomManager : MonoBehaviour
         MeshFilter[] meshFilters = roomData.MeshAtlas.GetComponentsInChildren<MeshFilter>();
         for (int i = 0; i < _tiles.Length; i++)
         {
+            if (_tiles[i] == null)
+            {
+                continue;
+            }
+
             tileNameJoined = "";
             tileName = _tiles[i].sharedMesh.name.Split('_');
             tileName[0] = "";
@@ -167,7 +172,18 @@ public class RoomManager : MonoBehaviour
 
         CombineInstance[] combineInstance = new CombineInstance[_tiles.Length];
 
-        mRenderer.material = _tiles[0].GetComponent<MeshRenderer>().material;
+        MeshFilter activeFilter = _tiles[0];
+
+        for(int i = 0; i < _tiles.Length; i++)
+        {
+            if (_tiles[i] != null)
+            {
+                activeFilter = _tiles[i];
+                break;
+            }
+        }
+
+        mRenderer.material = activeFilter.GetComponent<MeshRenderer>().material;
 
         Vector3 tempPosition = transform.position;
 
@@ -175,6 +191,10 @@ public class RoomManager : MonoBehaviour
 
         for(int i = 0; i < _tiles.Length; ++i)
         {
+            if (_tiles[i] == null || _tiles[i].sharedMesh == null)
+            {
+                continue;
+            }
             combineInstance[i].mesh = _tiles[i].sharedMesh;
             combineInstance[i].transform = _tiles[i].transform.localToWorldMatrix;
             Destroy(_tiles[i].gameObject);

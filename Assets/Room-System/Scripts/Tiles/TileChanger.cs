@@ -31,7 +31,7 @@ public class TileChanger : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            DestroyImmediate(gameObject);
         }
     }
 }
