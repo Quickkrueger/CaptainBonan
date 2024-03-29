@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   escapeDistance: 5
-  stopDistance: 0
+  stopDistance: 0.5
 --- !u!135 &3730877483061408838
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -230,6 +230,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e1a1753762d7b14cb6265c9a3332256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackSpeed: 0
 --- !u!1 &3701873150750707246
 GameObject:
   m_ObjectHideFlags: 0
