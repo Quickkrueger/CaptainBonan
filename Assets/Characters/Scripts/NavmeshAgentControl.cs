@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,51 +18,41 @@ public class NavmeshAgentControl : MonoBehaviour
 
     private NavMeshAgent agent;
     private Transform target;
-
-    private UnityAction withinStoppingAction;
-
+    [HideInInspector]
+    public UnityAction StopAction;
+    [HideInInspector]
+    public UnityAction<float> MoveAction;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        
     }
 
-    public void SubscribeToStopping(UnityAction attack)
-    {
-        withinStoppingAction += attack;
-    }
-
-    public void UnsubscribeToStopping(UnityAction attack)
-    {
-        withinStoppingAction -= attack;
-    }
-
-    public void BeginFollow(Transform newTarget, AnimationControl animationControl)
+    public void BeginFollow(Transform newTarget)
     {
             target = newTarget;
-            StartCoroutine(FollowTargetRoutine(new WaitForFixedUpdate(), animationControl));
+            StartCoroutine(FollowTargetRoutine(new WaitForFixedUpdate()));
     }
 
-    private IEnumerator FollowTargetRoutine(WaitForFixedUpdate waitForFixedUpdate, AnimationControl animationControl)
+    private IEnumerator FollowTargetRoutine(WaitForFixedUpdate waitForFixedUpdate)
     {
-        animationControl.UpdateFloatProperty("Speed", agent.velocity.magnitude / agent.speed);
+        MoveAction.Invoke(agent.velocity.magnitude / agent.speed);
         agent.SetDestination(target.transform.position);
 
         if (Vector3.Distance(target.position, transform.position) > escapeDistance)
         {
             target = null;
             agent.ResetPath();
-            animationControl.UpdateFloatProperty("Speed", 0);
+            MoveAction.Invoke(0);
             StopAllCoroutines();
         }
         else if (Vector3.Distance(target.position, transform.position) <= stopDistance - (stopDistance / 4))
         {
-            withinStoppingAction.Invoke();
+            StopAction.Invoke();
         }
 
         yield return waitForFixedUpdate;
-        StartCoroutine(FollowTargetRoutine(waitForFixedUpdate, animationControl));
+        StartCoroutine(FollowTargetRoutine(waitForFixedUpdate));
     }
 
 
