@@ -24,15 +24,26 @@ public class NavmeshAgentControl : MonoBehaviour
 
     Coroutine followRoutine;
 
-    private void Awake()
+    public void InitializeAgentControl()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.stoppingDistance = stopDistance - (stopDistance * 0.1f);
     }
 
+    public float GetTargetDistance()
+    {
+        return agent.remainingDistance;
+    }
+
+    public Transform GetTarget()
+    {
+        return target;
+    }
+
     public void BeginFollow(Transform newTarget)
     {
             target = newTarget;
+
         if (followRoutine == null)
         {
             followRoutine = StartCoroutine(FollowTargetRoutine(new WaitForFixedUpdate()));
@@ -45,7 +56,7 @@ public class NavmeshAgentControl : MonoBehaviour
         MoveAction.Invoke(agent.velocity.magnitude / agent.speed);
         agent.SetDestination(target.transform.position);
 
-        if (Vector3.Distance(target.position, transform.position) > escapeDistance)
+        if (agent.remainingDistance > escapeDistance)
         {
             target = null;
             agent.ResetPath();
@@ -53,7 +64,7 @@ public class NavmeshAgentControl : MonoBehaviour
             StopCoroutine(followRoutine);
             followRoutine = null;
         }
-        else if (Vector3.Distance(target.position, transform.position) <= stopDistance)
+        else if (agent.remainingDistance <= stopDistance)
         {
             StopAction.Invoke();
         }

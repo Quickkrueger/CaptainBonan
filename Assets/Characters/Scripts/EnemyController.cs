@@ -3,12 +3,13 @@ using UnityEngine;
 
 [RequireComponent(typeof(AnimationControl))]
 [RequireComponent(typeof(NavmeshAgentControl))]
+[RequireComponent (typeof(HealthControl))]
 public class EnemyController : MonoBehaviour
 {
 
     AnimationControl animControl;
     NavmeshAgentControl navmeshAgentControl;
-    private GameObject target;
+    HealthControl healthControl;
     [Range(.1f, 2f)]
     public float attackSpeed;
 
@@ -18,17 +19,22 @@ public class EnemyController : MonoBehaviour
     {
         animControl = GetComponent<AnimationControl>();
         navmeshAgentControl = GetComponent<NavmeshAgentControl>();
+        healthControl = GetComponent<HealthControl>();
+
+        navmeshAgentControl.InitializeAgentControl();
+        healthControl.InitializeHealth();
+
         navmeshAgentControl.StopAction += Attack;
         navmeshAgentControl.MoveAction += Move;
+        healthControl.UpdateHealthAction += UpdateHealth;
     }
 
 
     private void OnTriggerEnter(Collider other)
     {
-        if (target == null && other.tag == "Player")
+        if (other.tag == "Player")
         {
-            target = other.gameObject;
-            navmeshAgentControl.BeginFollow(target.transform);
+            navmeshAgentControl.BeginFollow(other.transform);
         }
     }
 
@@ -48,6 +54,11 @@ public class EnemyController : MonoBehaviour
             attackRoutine = null;
         }
         animControl.UpdateFloatProperty("Speed", speed);
+    }
+
+    private void UpdateHealth(int health)
+    {
+        
     }
 
     private void Attack()
