@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class ShrinkAndDestroy : MonoBehaviour
 {
     Coroutine shrinkRoutine;
     public GameObject meshToShrink;
     public float shrinkRate = 0f;
+    public float destroyDelay;
+    public UnityEvent fullyShrunk;
     public void StartShrink()
     {
         if (shrinkRoutine == null)
@@ -26,7 +29,8 @@ public class ShrinkAndDestroy : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject);
+            fullyShrunk.Invoke();
+            Destroy(gameObject, destroyDelay);
         }
     }
 }
