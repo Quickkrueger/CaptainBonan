@@ -10,6 +10,9 @@ public class WeaponController : MonoBehaviour
 
     public void UseWeapon()
     {
-        WeaponAction.Invoke();
+        if (WeaponAction != null)
+        {
+            WeaponAction.Invoke();
+        }
     }
 }

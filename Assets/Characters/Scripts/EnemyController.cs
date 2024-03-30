@@ -1,17 +1,22 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(AnimationControl))]
 [RequireComponent(typeof(NavmeshAgentControl))]
 [RequireComponent (typeof(HealthControl))]
+[RequireComponent(typeof(WeaponController))]
 public class EnemyController : MonoBehaviour
 {
 
     AnimationControl animControl;
     NavmeshAgentControl navmeshAgentControl;
     HealthControl healthControl;
+    WeaponController weaponController;
+
     [Range(.1f, 2f)]
     public float attackSpeed;
+    public UnityEvent deathEvent;
 
     Coroutine attackRoutine;
     // Start is called before the first frame update
@@ -20,17 +25,20 @@ public class EnemyController : MonoBehaviour
         animControl = GetComponent<AnimationControl>();
         navmeshAgentControl = GetComponent<NavmeshAgentControl>();
         healthControl = GetComponent<HealthControl>();
-
-        navmeshAgentControl.InitializeAgentControl();
-        healthControl.InitializeHealth();
+        weaponController = GetComponent<WeaponController>();
 
         navmeshAgentControl.StopAction += Attack;
         navmeshAgentControl.MoveAction += Move;
         healthControl.UpdateHealthAction += UpdateHealth;
+
+        navmeshAgentControl.InitializeAgentControl();
+        healthControl.InitializeHealth();
+
+        
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    public void AcquireTarget(Collider other)
     {
         if (other.tag == "Player")
         {
@@ -38,26 +46,39 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-
+    private void OnTriggerExit(Collider other)
+    {
+        if(other.transform == navmeshAgentControl.GetTarget())
+        {
+            if(attackRoutine != null)
+            {
+                StopCoroutine(attackRoutine);
+                attackRoutine = null;
+            }
+        }
+    }
 
     private void OnDestroy()
     {
         navmeshAgentControl.StopAction -= Attack;
         navmeshAgentControl.MoveAction -= Move;
+        healthControl.UpdateHealthAction -= UpdateHealth;
     }
 
     private void Move(float speed)
     {
-        if (attackRoutine != null & speed > 0.3f)
-        {
-            StopCoroutine(attackRoutine);
-            attackRoutine = null;
-        }
         animControl.UpdateFloatProperty("Speed", speed);
     }
 
     private void UpdateHealth(int health)
     {
+
+        if(health <= 0)
+        {
+            animControl.UpdateTriggerProperty("Die");
+            deathEvent.Invoke();
+            this.enabled = false;
+        }
         
     }
 
@@ -65,13 +86,16 @@ public class EnemyController : MonoBehaviour
     {
         if (attackRoutine == null)
         {
-            attackRoutine = StartCoroutine(AttackRoutine(new WaitForSeconds(attackSpeed)));
+            attackRoutine = StartCoroutine(AttackRoutine(new WaitForSeconds(attackSpeed / 2)));
         }
     }
 
     IEnumerator AttackRoutine(WaitForSeconds seconds)
     {
+        
+        yield return seconds;
         animControl.UpdateTriggerProperty("Attack");
+        weaponController.UseWeapon();
         yield return seconds;
         attackRoutine = StartCoroutine(AttackRoutine(seconds));
     }

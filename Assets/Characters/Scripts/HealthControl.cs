@@ -15,21 +15,30 @@ public class HealthControl : MonoBehaviour, IDamageable
     public void InitializeHealth()
     {
         currentHealth = maxHealth;
-        UpdateHealthAction.Invoke(currentHealth);
+        UpdateHealth();
     }
 
     public void TakeDamage(int damageAmount)
     {
         currentHealth = Mathf.Clamp(currentHealth - damageAmount,0, maxHealth);
-        UpdateHealthAction.Invoke(currentHealth);
+        UpdateHealth();
     }
 
     public void GainHealth(int healAmount)
     {
 
         currentHealth = Mathf.Clamp(currentHealth + healAmount, 0, maxHealth);
-        UpdateHealthAction.Invoke(currentHealth);
+        UpdateHealth();
 
+    }
+
+    private void UpdateHealth()
+    {
+        if (UpdateHealthAction != null)
+        {
+            UpdateHealthAction.Invoke(currentHealth);
+            Debug.Log($"{gameObject.name} HP: {currentHealth}");
+        }
     }
     // Start is called before the first frame update
 

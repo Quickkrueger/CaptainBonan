@@ -54,15 +54,18 @@ public class NavmeshAgentControl : MonoBehaviour
     {
 
         MoveAction.Invoke(agent.velocity.magnitude / agent.speed);
-        agent.SetDestination(target.transform.position);
+        if (target != null)
+        {
+            agent.SetDestination(target.transform.position);
+        }
 
-        if (agent.remainingDistance > escapeDistance)
+        if (agent.remainingDistance > escapeDistance || target == null)
         {
             target = null;
             agent.ResetPath();
             MoveAction.Invoke(0);
             StopCoroutine(followRoutine);
-            followRoutine = null;
+            
         }
         else if (agent.remainingDistance <= stopDistance)
         {

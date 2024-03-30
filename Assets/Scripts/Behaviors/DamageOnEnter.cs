@@ -20,7 +20,7 @@ public class DamageOnEnter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!targets.Contains(other))
+        if (!targets.Contains(other) && captureTriggerEvents)
         {
             targets.Add(other);
         }
@@ -28,10 +28,15 @@ public class DamageOnEnter : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (targets.Contains(other))
+        if (targets.Contains(other) && captureTriggerEvents)
         {
             targets.Remove(other);
         }
+    }
+
+    public void InitiateDamage()
+    {
+        DamageOther();
     }
 
     public void DamageOther(Collider other = null)
