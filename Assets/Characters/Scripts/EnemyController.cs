@@ -85,6 +85,7 @@ public class EnemyController : MonoBehaviour
         {
             animControl.UpdateTriggerProperty("Die");
             deathEvent.Invoke();
+            StopAllCoroutines();
             this.enabled = false;
         }
         
