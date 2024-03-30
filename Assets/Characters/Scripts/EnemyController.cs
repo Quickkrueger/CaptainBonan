@@ -58,6 +58,14 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (navmeshAgentControl != null && other.transform == navmeshAgentControl.GetTarget())
+        {
+                Attack();
+        }
+    }
+
     private void OnDestroy()
     {
         navmeshAgentControl.StopAction -= Attack;

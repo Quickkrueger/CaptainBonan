@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 5528680319804205349}
   - component: {fileID: 260701864711712317}
   - component: {fileID: 6317929653070982033}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -138,7 +138,6 @@ MonoBehaviour:
   validLayers:
     serializedVersion: 2
     m_Bits: 64
-  captureTriggerEvents: 0
 --- !u!135 &6317929653070982033
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -464,6 +463,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56a5c9b3b33b9d243ad3630527fdd5a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meshToShrink: {fileID: 160954774898991488}
+  shrinkRate: 1
 --- !u!135 &460107862946596806
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -555,7 +556,7 @@ GameObject:
   - component: {fileID: 1018123994027937709}
   - component: {fileID: 7074840355396041573}
   - component: {fileID: 6675843837750811439}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Detector
   m_TagString: Untagged
   m_Icon: {fileID: 0}

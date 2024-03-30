@@ -2,14 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageOnEnter : MonoBehaviour
+public class DamageOnEvent : MonoBehaviour
 {
     [SerializeField]
     int damageValue = 1;
     [SerializeField]
     LayerMask validLayers;
-    [SerializeField]
-    bool captureTriggerEvents;
 
     private List<Collider> targets;
 
@@ -20,7 +18,7 @@ public class DamageOnEnter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!targets.Contains(other) && captureTriggerEvents)
+        if (!targets.Contains(other) && validLayers == (validLayers | 1 << other.gameObject.layer))
         {
             targets.Add(other);
         }
@@ -28,7 +26,7 @@ public class DamageOnEnter : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (targets.Contains(other) && captureTriggerEvents)
+        if (targets.Contains(other))
         {
             targets.Remove(other);
         }
@@ -42,8 +40,15 @@ public class DamageOnEnter : MonoBehaviour
     public void DamageOther(Collider other = null)
     {
         IDamageable component;
-        for (int i = 0; i < targets.Count; i++)
+        for (int i = targets.Count - 1; i >= 0; i--)
         {
+
+            if (targets[i] == null)
+            {
+                targets.RemoveAt(i);
+                continue;
+            }
+
             if (validLayers == (validLayers | 1 << targets[i].gameObject.layer) && targets[i].TryGetComponent(out component))
             {
                 component.TakeDamage(damageValue);

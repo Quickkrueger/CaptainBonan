@@ -67,10 +67,6 @@ public class NavmeshAgentControl : MonoBehaviour
             StopCoroutine(followRoutine);
             
         }
-        else if (agent.remainingDistance <= stopDistance)
-        {
-            StopAction.Invoke();
-        }
 
         yield return waitForFixedUpdate;
         followRoutine = StartCoroutine(FollowTargetRoutine(waitForFixedUpdate));

@@ -5,6 +5,8 @@ using UnityEngine;
 public class ShrinkAndDestroy : MonoBehaviour
 {
     Coroutine shrinkRoutine;
+    public GameObject meshToShrink;
+    public float shrinkRate = 0f;
     public void StartShrink()
     {
         if (shrinkRoutine == null)
@@ -16,9 +18,9 @@ public class ShrinkAndDestroy : MonoBehaviour
     IEnumerator ShrinkRoutine(WaitForFixedUpdate waitForFixedUpdate)
     {
 
-        transform.localScale = transform.localScale - Vector3.one * Time.deltaTime;
+        meshToShrink.transform.localScale = meshToShrink.transform.localScale - (Vector3.one * Time.deltaTime * shrinkRate);
         yield return waitForFixedUpdate;
-        if (transform.localScale.magnitude > 0.02f)
+        if (meshToShrink.transform.localScale.magnitude > 0.02f)
         {
             shrinkRoutine = StartCoroutine(ShrinkRoutine(waitForFixedUpdate));
         }
