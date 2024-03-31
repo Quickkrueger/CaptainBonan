@@ -12,6 +12,8 @@ public class CharacterControl : MonoBehaviour
 
     private LinkedIntAction _healthUIAction;
 
+    public GameObject _ragdoll;
+
     private void Start()
     {
         _movementController = GetComponent<MovementController>();
@@ -43,7 +45,18 @@ public class CharacterControl : MonoBehaviour
 
         if (newHealth <=  0)
         {
-            
+            GameObject ragdoll = Instantiate(_ragdoll);
+
+            Transform[] ragTransforms = ragdoll.GetComponentsInChildren<Transform>();
+            Transform[] transforms = GetComponentsInChildren<Transform>();
+
+            for (int i = 0; i < ragTransforms.Length; i++)
+            {
+                ragTransforms[i].position = transforms[i].position;
+                ragTransforms[i].rotation = transforms[i].rotation;
+            }
+
+            Destroy(gameObject);
         }
     }
 }
