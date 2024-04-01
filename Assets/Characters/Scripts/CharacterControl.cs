@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 [RequireComponent(typeof(MovementController))]
 [RequireComponent (typeof(AnimationControl))]
@@ -9,10 +10,12 @@ public class CharacterControl : MonoBehaviour
     private MovementController _movementController;
     private AnimationControl _animationControl;
     private HealthControl _healthControl;
+    public SkinnedMeshRenderer _skinnedMeshRenderer;
 
     private LinkedIntAction _healthUIAction;
 
     public GameObject _ragdoll;
+
 
     private void Start()
     {
@@ -54,6 +57,19 @@ public class CharacterControl : MonoBehaviour
             {
                 ragTransforms[i].position = transforms[i].position;
                 ragTransforms[i].rotation = transforms[i].rotation;
+            }
+
+            _skinnedMeshRenderer.material.SetInteger("dead", 1);
+
+            SkinnedMeshRenderer[] ragdollRenderers = ragdoll.GetComponentsInChildren<SkinnedMeshRenderer>();
+
+            for(int i = 0;i < ragdollRenderers.Length; i++)
+            {
+                if (ragdollRenderers[i].gameObject.name == "Bananaman")
+                {
+                    ragdollRenderers[i].material.SetInteger("dead", 1);
+                    break;
+                }
             }
 
             Destroy(gameObject);
