@@ -259,7 +259,7 @@ GameObject:
   - component: {fileID: 6340745448385511857}
   - component: {fileID: 7584296812755581668}
   - component: {fileID: 7750631881476619620}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: SquareRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}

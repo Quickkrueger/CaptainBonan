@@ -11,15 +11,16 @@ public class RoomManager : MonoBehaviour
 
     private bool activated = false;
     private TileChanger[] _tileChangers;
-    private Spawner[] _spawners;
+    private SpawnerTile[] _spawners;
     private Trap[] _traps;
     private MeshFilter[] _tiles;
+    private Transform _tilesParent;
     private SpawnGroup _roomGroup;
 
     private void Awake()
     {
         _tileChangers = GetComponentsInChildren<TileChanger>();
-        _spawners = GetComponentsInChildren<Spawner>();
+        _spawners = GetComponentsInChildren<SpawnerTile>();
 
         GameObject tileParent = null;
 
@@ -30,6 +31,8 @@ public class RoomManager : MonoBehaviour
             if(tileParent.gameObject.name == "Tiles")
             {
                 _tiles = tileParent.GetComponentsInChildren<MeshFilter>();
+                _tilesParent = tileParent.transform;
+                break;
             }
         }
 
@@ -114,7 +117,7 @@ public class RoomManager : MonoBehaviour
 
     private void SetSpawners()
     {
-        foreach(Spawner spawner in _spawners)
+        foreach(SpawnerTile spawner in _spawners)
         {
             if(spawner.Randomizable && _roomGroup.HasFlag(spawner.p_SpawnGroup))
             {
@@ -167,8 +170,9 @@ public class RoomManager : MonoBehaviour
     private void GenerateMeshCollider()
     {
 
-        MeshFilter mFilter = gameObject.AddComponent<MeshFilter>();
-        MeshRenderer mRenderer = gameObject.AddComponent<MeshRenderer>();
+
+        MeshFilter mFilter = _tilesParent.gameObject.AddComponent<MeshFilter>();
+        MeshRenderer mRenderer = _tilesParent.gameObject.AddComponent<MeshRenderer>();
 
         CombineInstance[] combineInstance = new CombineInstance[_tiles.Length];
 
@@ -185,9 +189,9 @@ public class RoomManager : MonoBehaviour
 
         mRenderer.material = activeFilter.GetComponent<MeshRenderer>().material;
 
-        Vector3 tempPosition = transform.position;
+        Vector3 tempPosition = _tilesParent.position;
 
-        transform.position = Vector3.zero;
+        _tilesParent.position = Vector3.zero;
 
         for(int i = 0; i < _tiles.Length; ++i)
         {
@@ -203,10 +207,10 @@ public class RoomManager : MonoBehaviour
         combinedMesh.CombineMeshes(combineInstance);
         mFilter.mesh = combinedMesh;
 
-        MeshCollider mCollider = gameObject.AddComponent<MeshCollider>();
+        MeshCollider mCollider = _tilesParent.gameObject.AddComponent<MeshCollider>();
         mCollider.sharedMesh = combinedMesh;
 
-        transform.position = tempPosition;
+        _tilesParent.position = tempPosition;
 
         for (int i = 0; i < _tiles.Length; ++i)
         {

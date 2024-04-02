@@ -10,9 +10,11 @@ public class CharacterControl : MonoBehaviour
     private MovementController _movementController;
     private AnimationControl _animationControl;
     private HealthControl _healthControl;
+    public WeaponController _weaponController;
     public SkinnedMeshRenderer _skinnedMeshRenderer;
 
     private LinkedIntAction _healthUIAction;
+
 
     public GameObject _ragdoll;
 
@@ -36,7 +38,15 @@ public class CharacterControl : MonoBehaviour
 
     public void Primary()
     {
+
         _animationControl.UpdateTriggerProperty("shoot");
+    }
+
+    public void WeaponActivate()
+    {
+        _weaponController.transform.rotation = transform.rotation;
+        _weaponController.UseWeapon();
+        _weaponController.transform.localRotation = Quaternion.identity;
     }
 
     private void UpdateHealth(int newHealth)

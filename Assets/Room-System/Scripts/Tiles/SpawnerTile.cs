@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class SpawnerTile : MonoBehaviour
 {
     [SerializeField]
     bool randomizable = false;

@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 1403700697253964532}
   - component: {fileID: 6992711794094535655}
   - component: {fileID: 6524390345980591244}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: CircleStartRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
