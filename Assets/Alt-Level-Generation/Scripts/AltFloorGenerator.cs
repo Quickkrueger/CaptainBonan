@@ -1,5 +1,7 @@
 using UnityEngine;
 using Unity.AI.Navigation;
+using System.Collections;
+using Unity.EditorCoroutines.Editor;
 
 public class AltFloorGenerator : MonoBehaviour
 {
@@ -32,8 +34,52 @@ public class AltFloorGenerator : MonoBehaviour
         numRooms = 0;
         Random.InitState((int)System.DateTime.Now.Ticks);
         floorGrid = new FloorGrid(floorGridSize.x, floorGridSize.y);
+        //#if !UNITY_EDITOR
         GenerateFloor();
+        //#endif
+        //#if UNITY_EDITOR
+        //GenerateFloorEditor();
+        //#endif
     }
+
+    void GenerateFloorEditor()
+    {
+        EditorCoroutineUtility.StartCoroutine(RunStartDelayed(), this);
+    }
+
+    IEnumerator RunStartDelayed()
+    {
+        ChooseStartingRoom();
+        yield return new WaitForSeconds(0.1f);
+        EditorCoroutineUtility.StartCoroutine(RunRoomDelayed(), this);
+    }
+
+    private IEnumerator RunRoomDelayed()
+    {
+        Vector2Int roomCoord = floorGrid.SelectRoomByWeight();
+
+        if (roomCoord.x != -1 && roomCoord.y != -1)
+        {
+            int randAtlas = Random.Range(0, tileAtlasList.Length);
+            floorGrid.FillRoom(roomCoord.x, roomCoord.y, exRoom.Room, roomSet.rooms.GetRandomObject(), tileAtlasList[randAtlas], roomSpacing);
+
+            numRooms++;
+
+            floorGrid.UpdateWeightedRooms(roomCoord);
+
+            yield return new WaitForSeconds(0.1f);
+
+            if (numRooms < maxRooms)
+            {
+                EditorCoroutineUtility.StartCoroutine(RunRoomDelayed(), this);
+            }
+            else
+            {
+                FinalizeRooms();
+            }
+        }
+    }
+
 
     private void GenerateFloor()
     {
@@ -43,6 +89,8 @@ public class AltFloorGenerator : MonoBehaviour
         FinalizeRooms();
         GenerateNavmesh();
     }
+
+    
 
     private void ChooseStartingRoom()
     {

@@ -21,9 +21,7 @@ public class SpawnerTile : MonoBehaviour
     {
         _editorIndicator = GetComponent<SpriteRenderer>();
 
-#if !UNITY_EDITOR
         Destroy(_editorIndicator);
-#endif
     }
     // Start is called before the first frame update
     void Start()

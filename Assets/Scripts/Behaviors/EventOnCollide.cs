@@ -18,7 +18,7 @@ public class EventOnCollide : MonoBehaviour
     {
         RaycastHit hit;
         Vector3 hitPosition = transform.position;
-        if (Physics.Raycast(transform.position, transform.forward, out hit))
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f))
         {
             hitPosition = hit.point;
         }
