@@ -14,9 +14,10 @@ public class TileChanger : MonoBehaviour
 
     private void Awake()
     {
-        _tileMesh = GetComponent<MeshFilter>();
+        
         if(direction == Direction.None)
         {
+            _tileMesh = GetComponent<MeshFilter>();
             SwapToAlternate();
         }
     }
@@ -24,6 +25,8 @@ public class TileChanger : MonoBehaviour
 
     public void SwapToAlternate()
     {
+        _tileMesh = GetComponent<MeshFilter>();
+
         if (alternateTile != null)
         {
             _tileMesh.mesh = alternateTile;

@@ -160,7 +160,7 @@ Material:
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
-    - _GroundTiling: 0.25
+    - _GroundTiling: 0.181
     - _Metallic: 0
     - _Metallic_Blur: 5
     - _Metallic_Modifier: 1
@@ -183,7 +183,7 @@ Material:
     - _SrcBlend: 1
     - _SrcBlendAlpha: 1
     - _Surface: 0
-    - _Wall_Tiling: 0.5
+    - _Wall_Tiling: 0.524
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:

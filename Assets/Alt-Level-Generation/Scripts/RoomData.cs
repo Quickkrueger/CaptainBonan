@@ -59,7 +59,7 @@ public class RoomData
 
         GameObject temp = roomObject;
         roomObject = GameObject.Instantiate(newGameObject, temp.transform.position, temp.transform.rotation);
-        GameObject.Destroy(temp);
+        GameObject.DestroyImmediate(temp);
         return false;
     }
 
@@ -118,6 +118,11 @@ public class RoomData
     public int GetNumOccupiedNeighbors()
     {
         return neighbors.GetNumberOfOccupiedNeighbors();
+    }
+
+    public void ClearRoom()
+    {
+        GameObject.DestroyImmediate(roomObject);
     }
 
     public void FinalizeRoom()

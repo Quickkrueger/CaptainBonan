@@ -16,6 +16,20 @@ public class AltFloorGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
+    }
+
+    public void Clear()
+    {
+        if (floorGrid != null)
+        {
+            floorGrid.ClearFloor();
+        }
+    }
+
+    public void Generate()
+    {
+        numRooms = 0;
         Random.InitState((int)System.DateTime.Now.Ticks);
         floorGrid = new FloorGrid(floorGridSize.x, floorGridSize.y);
         GenerateFloor();

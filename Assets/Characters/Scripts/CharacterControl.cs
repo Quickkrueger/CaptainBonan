@@ -13,7 +13,7 @@ public class CharacterControl : MonoBehaviour
     public WeaponController _weaponController;
     public SkinnedMeshRenderer _skinnedMeshRenderer;
 
-    private LinkedIntAction _healthUIAction;
+    public LinkedFloatAction _healthUIAction;
 
 
     public GameObject _ragdoll;
@@ -51,9 +51,10 @@ public class CharacterControl : MonoBehaviour
 
     private void UpdateHealth(int newHealth)
     {
-        if (_healthUIAction != null)
+        if (_healthUIAction.action != null)
         {
-            _healthUIAction.InvokeAction(newHealth);
+            float healthRatio = (float)newHealth / (float)_healthControl.GetMaxHealth();
+            _healthUIAction.InvokeAction(healthRatio);
         }
 
         if (newHealth <=  0)
@@ -69,7 +70,7 @@ public class CharacterControl : MonoBehaviour
                 ragTransforms[i].rotation = transforms[i].rotation;
             }
 
-            _skinnedMeshRenderer.material.SetInteger("dead", 1);
+            _skinnedMeshRenderer.material.SetFloat("_dead", 1);
 
             SkinnedMeshRenderer[] ragdollRenderers = ragdoll.GetComponentsInChildren<SkinnedMeshRenderer>();
 
@@ -77,7 +78,7 @@ public class CharacterControl : MonoBehaviour
             {
                 if (ragdollRenderers[i].gameObject.name == "Bananaman")
                 {
-                    ragdollRenderers[i].material.SetInteger("dead", 1);
+                    ragdollRenderers[i].material.SetFloat("_dead", 1);
                     break;
                 }
             }

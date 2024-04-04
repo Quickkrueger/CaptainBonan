@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e05b8500fb025043b6ea6072124677c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  randomizable: 0
+  randomizable: 1
   spawnSet:
   - {fileID: 8846773584885817773, guid: 381fc510174246a4898cbfc449825ea6, type: 3}
   spawnGroup: 4

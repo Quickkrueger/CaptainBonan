@@ -94,6 +94,13 @@ public class FloorGrid
 
     public void ClearFloor()
     {
+        for(int i = 0; i < occupiedRooms.Count; i++)
+        {
+            occupiedRooms[i].ClearRoom();
+            
+        }
+        occupiedRooms.Clear();
+        weightedRooms.Clear();
         SetupRooms();
         EstablishNeighbors();
     }

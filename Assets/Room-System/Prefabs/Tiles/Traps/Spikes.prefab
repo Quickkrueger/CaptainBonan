@@ -150,5 +150,4 @@ MonoBehaviour:
   damageValue: 1
   validLayers:
     serializedVersion: 2
-    m_Bits: 192
-  captureTriggerEvents: 0
+    m_Bits: 64

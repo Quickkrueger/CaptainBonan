@@ -935,6 +935,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _weaponController: {fileID: 6432566669208744692}
   _skinnedMeshRenderer: {fileID: 3752870041219032685}
+  _healthUIAction: {fileID: 11400000, guid: 9282909060109e74dbb490b1fb7b578e, type: 2}
   _ragdoll: {fileID: 3684850454691506692, guid: eafa6c9771b28c14897f947450353083,
     type: 3}
 --- !u!114 &4603345289756006232

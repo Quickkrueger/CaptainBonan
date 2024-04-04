@@ -2,6 +2,7 @@ using Cinemachine;
 using System.Linq;
 using UnityEngine;
 
+
 public class RoomManager : MonoBehaviour
 {
     public CinemachineVirtualCamera _virtualCamera;
@@ -17,38 +18,10 @@ public class RoomManager : MonoBehaviour
     private Transform _tilesParent;
     private SpawnGroup _roomGroup;
 
+    
     private void Awake()
     {
-        _tileChangers = GetComponentsInChildren<TileChanger>();
-        _spawners = GetComponentsInChildren<SpawnerTile>();
-
-        GameObject tileParent = null;
-
-       for(int i = 0; i < transform.childCount; i++)
-        {
-            tileParent = transform.GetChild(i).gameObject;
-
-            if(tileParent.gameObject.name == "Tiles")
-            {
-                _tiles = tileParent.GetComponentsInChildren<MeshFilter>();
-                _tilesParent = tileParent.transform;
-                break;
-            }
-        }
-
-        System.Array spawnGroups = System.Enum.GetValues(typeof(SpawnGroup));
-        for(int i = 0; i < spawnGroups.Length; i++)
-        {
-            if ((SpawnGroup)spawnGroups.GetValue(i) != SpawnGroup.None) 
-            {
-                _roomGroup |= (SpawnGroup)spawnGroups.GetValue(i);
-            }
-        }
-
-        int roomGroupValue = (int) _roomGroup;
-        Random.InitState(System.DateTime.Now.Millisecond);
-        roomGroupValue = Random.Range(0, roomGroupValue + 1);
-        _roomGroup = (SpawnGroup)roomGroupValue;
+        
     }
 
     private void Start()
@@ -70,6 +43,40 @@ public class RoomManager : MonoBehaviour
                 ActivateRoom();
             }
         }
+    }
+
+    private void InitializeRoom()
+    {
+        _tileChangers = GetComponentsInChildren<TileChanger>();
+        _spawners = GetComponentsInChildren<SpawnerTile>();
+
+        GameObject tileParent = null;
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            tileParent = transform.GetChild(i).gameObject;
+
+            if (tileParent.gameObject.name == "Tiles")
+            {
+                _tiles = tileParent.GetComponentsInChildren<MeshFilter>();
+                _tilesParent = tileParent.transform;
+                break;
+            }
+        }
+
+        System.Array spawnGroups = System.Enum.GetValues(typeof(SpawnGroup));
+        for (int i = 0; i < spawnGroups.Length; i++)
+        {
+            if ((SpawnGroup)spawnGroups.GetValue(i) != SpawnGroup.None)
+            {
+                _roomGroup |= (SpawnGroup)spawnGroups.GetValue(i);
+            }
+        }
+
+        int roomGroupValue = (int)_roomGroup;
+        Random.InitState(System.DateTime.Now.Millisecond);
+        roomGroupValue = Random.Range(0, roomGroupValue + 1);
+        _roomGroup = (SpawnGroup)roomGroupValue;
     }
 
     private void ActivateCamera()
@@ -95,15 +102,14 @@ public class RoomManager : MonoBehaviour
         }
 
     }
-
     public void SetUpRoom(RoomData roomData)
     {
+        InitializeRoom();
         SetEntrances(roomData);
         SetSpawners();
         SetTileMeshes(roomData);
         GenerateMeshCollider();
     }
-
     private void SetEntrances(RoomData roomData)
     {
         for (int i = _tileChangers.Length - 1; i >= 0; i--)
@@ -187,7 +193,7 @@ public class RoomManager : MonoBehaviour
             }
         }
 
-        mRenderer.material = activeFilter.GetComponent<MeshRenderer>().material;
+        mRenderer.material = activeFilter.GetComponent<MeshRenderer>().sharedMaterial;
 
         Vector3 tempPosition = _tilesParent.position;
 
@@ -216,7 +222,7 @@ public class RoomManager : MonoBehaviour
         {
             if (_tiles[i] != null)
             {
-                Destroy(_tiles[i].gameObject);
+                DestroyImmediate(_tiles[i].gameObject);
             }
         }
     }

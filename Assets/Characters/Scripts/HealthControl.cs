@@ -37,8 +37,12 @@ public class HealthControl : MonoBehaviour, IDamageable
         if (UpdateHealthAction != null)
         {
             UpdateHealthAction.Invoke(currentHealth);
-            Debug.Log($"{gameObject.name} HP: {currentHealth}");
         }
+    }
+
+    public int GetMaxHealth()
+    {
+        return maxHealth;
     }
     // Start is called before the first frame update
 
