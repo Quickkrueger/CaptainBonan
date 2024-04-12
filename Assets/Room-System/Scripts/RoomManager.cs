@@ -173,6 +173,19 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+
+
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            if (transform.GetChild(i) != null)
+            {
+                Destroy(transform.gameObject);
+            }
+        }
+    }
+
     private void GenerateMeshCollider()
     {
 
