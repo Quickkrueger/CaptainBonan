@@ -14,6 +14,7 @@ public class CharacterControl : MonoBehaviour
     public SkinnedMeshRenderer _skinnedMeshRenderer;
 
     public LinkedFloatAction _healthUIAction;
+    public LinkedAction _deathAction;
 
 
     public GameObject _ragdoll;
@@ -82,6 +83,8 @@ public class CharacterControl : MonoBehaviour
                     break;
                 }
             }
+
+            _deathAction.InvokeAction();
 
             Destroy(gameObject);
         }

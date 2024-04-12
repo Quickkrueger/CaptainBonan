@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class UIFade : MonoBehaviour
 {
-    public Graphic uiGraphic;
+    public Graphic[] uiGraphics;
+    float maxOpacity = 1f;
 
     public UnityEvent fadeInEvent;
     public float pauseTime = 1;
@@ -36,14 +37,21 @@ public class UIFade : MonoBehaviour
 
     private IEnumerator FadeRoutine(WaitForFixedUpdate waitForFixed, float stepAmount)
     {
-        uiGraphic.color = uiGraphic.color + Color.black * stepAmount * Time.deltaTime;
+        if(uiGraphics.Length < 1)
+        {
+            StopAllCoroutines();
+        }
+        for (int i = 0; i < uiGraphics.Length; i++)
+        {
+            uiGraphics[i].color = uiGraphics[i].color + Color.black * stepAmount * Time.deltaTime;
+        }
         yield return waitForFixed;
 
-        if (stepAmount > 0 && uiGraphic.color.a >= 1)
+        if (stepAmount > 0 && uiGraphics[0].color.a >= maxOpacity)
         {
             fadeInEvent.Invoke();
         }
-        else if (stepAmount < 0 && uiGraphic.color.a <= 0)
+        else if (stepAmount < 0 && uiGraphics[0].color.a <= 0)
         {
             fadeOutEvent.Invoke();
         }

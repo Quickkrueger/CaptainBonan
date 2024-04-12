@@ -29,17 +29,15 @@ public class AltFloorGenerator : MonoBehaviour
         }
     }
 
+
+
     public void Generate()
     {
+        Clear();
         numRooms = 0;
         Random.InitState((int)System.DateTime.Now.Ticks);
         floorGrid = new FloorGrid(floorGridSize.x, floorGridSize.y);
-        //#if !UNITY_EDITOR
         GenerateFloor();
-        //#endif
-        //#if UNITY_EDITOR
-        //GenerateFloorEditor();
-        //#endif
     }
 
     void GenerateFloorEditor()
