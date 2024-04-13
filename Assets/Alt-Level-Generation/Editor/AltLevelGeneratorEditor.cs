@@ -20,7 +20,7 @@ public class AltLevelGeneratorEditor : Editor
         if(GUILayout.Button("Generate Floor"))
         {
             instance.Clear();
-            instance.Generate();
+            instance.GenerateFloorEditor();
         }
         if (GUILayout.Button("Clear Floor"))
         {

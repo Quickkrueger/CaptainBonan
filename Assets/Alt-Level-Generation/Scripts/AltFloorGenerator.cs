@@ -40,8 +40,12 @@ public class AltFloorGenerator : MonoBehaviour
         GenerateFloor();
     }
 
-    void GenerateFloorEditor()
+    public void GenerateFloorEditor()
     {
+        Clear();
+        numRooms = 0;
+        Random.InitState((int)System.DateTime.Now.Ticks);
+        floorGrid = new FloorGrid(floorGridSize.x, floorGridSize.y);
         EditorCoroutineUtility.StartCoroutine(RunStartDelayed(), this);
     }
 

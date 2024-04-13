@@ -20,6 +20,7 @@ public class HealthControl : MonoBehaviour, IDamageable
 
     public void TakeDamage(int damageAmount)
     {
+        GetComponent<AudioSource>().Play();
         currentHealth = Mathf.Clamp(currentHealth - damageAmount,0, maxHealth);
         UpdateHealth();
     }
