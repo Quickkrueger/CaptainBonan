@@ -94,6 +94,13 @@ public class FloorGrid
 
     public void ClearFloor()
     {
+        for(int i = 0; i < occupiedRooms.Count; i++)
+        {
+            occupiedRooms[i].ClearRoom();
+            
+        }
+        occupiedRooms.Clear();
+        weightedRooms.Clear();
         SetupRooms();
         EstablishNeighbors();
     }
@@ -103,9 +110,9 @@ public class FloorGrid
         return floorRooms[xCoord, zCoord];
     }
 
-    public void FillRoom(int xCoord, int zCoord, exRoom roomType, GameObject gameObject, float roomSpacing)
+    public void FillRoom(int xCoord, int zCoord, exRoom roomType, GameObject gameObject, GameObject roomAtlas, float roomSpacing)
     {
-        floorRooms[xCoord, zCoord].OccupyRoom(gameObject, roomType, roomSpacing, (float)floorRooms.GetLength(0), (float)floorRooms.GetLength(1));
+        floorRooms[xCoord, zCoord].OccupyRoom(gameObject, roomAtlas, roomType, roomSpacing, (float)floorRooms.GetLength(0), (float)floorRooms.GetLength(1));
         occupiedRooms.Add(floorRooms[xCoord, zCoord]);
     }
 
@@ -189,9 +196,9 @@ public class FloorGrid
         return new Vector2Int(-1, -1);
     }
 
-    public void ReplaceRoom(Vector2Int roomCoord, GameObject newRoomObject, exRoom roomType)
+    public void ReplaceRoom(Vector2Int roomCoord, GameObject newRoomObject, GameObject roomAtlas, exRoom roomType)
     {
-        floorRooms[roomCoord.x, roomCoord.y].SwapRoom(newRoomObject, roomType);
+        floorRooms[roomCoord.x, roomCoord.y].SwapRoom(newRoomObject, roomAtlas, roomType);
     }
 
     public Vector2Int GetStartRoom()

@@ -42,6 +42,12 @@ public class RoomPrefabBaker : MonoBehaviour
                 Transform child = transform.GetChild(i);
                 if (child.childCount >= 2 && child.GetChild(0).childCount > 0)
                 {
+                    TileTracker[] trackers = GetComponentsInChildren<TileTracker>();
+
+                    for(int j = trackers.Length - 1; j >= 0; j--)
+                    {
+                        DestroyImmediate(trackers[j]);
+                    }
                     //ModelExporter.ExportObject(folderPath + "/" + child.gameObject.name + ".fbx", child.gameObject);
                     PrefabUtility.SaveAsPrefabAssetAndConnect(child.gameObject, folderPath + "/" + child.gameObject.name + ".prefab", InteractionMode.UserAction);
 
@@ -63,16 +69,22 @@ public class RoomPrefabBaker : MonoBehaviour
         newRoom.name = "New Room";
 
         RoomManager roomManager = newRoom.AddComponent<RoomManager>();
+        BoxCollider boxCollider = newRoom.AddComponent<BoxCollider>();
+
+        boxCollider.center = new Vector3(-.5f, 1, -.5f);
+        boxCollider.size = new Vector3(6.5f, 1, 6.5f);
        
 
         GameObject tiles = new GameObject();
         tiles.transform.parent = newRoom.transform;
         tiles.transform.localPosition = Vector3.zero;
+        tiles.AddComponent<TileTracker>();
         tiles.name = "Tiles";
 
         GameObject spawners = new GameObject();
         spawners.transform.parent = newRoom.transform;
         spawners.transform.localPosition = Vector3.zero;
+        spawners.AddComponent<TileTracker>();
         spawners.name = "Spawners";
 
         GameObject camera = new GameObject();

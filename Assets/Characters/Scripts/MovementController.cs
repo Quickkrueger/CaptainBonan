@@ -33,6 +33,7 @@ public class MovementController : MonoBehaviour
         else if(_movementRoutine != null)
         {
             StopCoroutine(_movementRoutine);
+            _rb.velocity = Vector3.zero;
             _movementRoutine = null;
         }
     }

@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: EntryTests
   m_EditorClassIdentifier: 
   assetList:
-  - {fileID: 2113168519905104307, guid: fbff29d5d5702d046933ce58096d665a, type: 3}
+  - {fileID: 8378283346158967564, guid: 54e46f32011bee14790524f899d4a674, type: 3}
+  - {fileID: 4292366826442006621, guid: 02c51ec8e2fa1f1498dece3fb2d1c6e0, type: 3}

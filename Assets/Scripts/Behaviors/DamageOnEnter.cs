@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class DamageOnEnter : MonoBehaviour
 {
-    [SerializeField]
-    float damageValue = 1;
-    
-    public void DamageOther(Collider other)
+    public int damageAmount;
+    private void OnCollisionEnter(Collision collision)
     {
-        if(TryGetComponent(out IDamageable component))
+        if (collision.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
         {
-            component.TakeDamage(damageValue);
+            damageable.TakeDamage(damageAmount);
         }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.TryGetComponent<IDamageable>(out IDamageable damageable))
+        {
+            damageable.TakeDamage(damageAmount);
+        }
+
     }
 }

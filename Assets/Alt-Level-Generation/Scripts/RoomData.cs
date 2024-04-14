@@ -12,6 +12,7 @@ public class RoomData
     private int weight = 0;
     private exRoom roomType = exRoom.Room;
     private GameObject roomObject;
+    private GameObject meshAtlas;
 
 
     public Vector2Int GridCoordinate
@@ -21,6 +22,8 @@ public class RoomData
     public bool IsOccupied { get { return occupied; } }
     public int Weight { get { return weight; } }
     public exRoom RoomType { get { return roomType; } }
+
+    public GameObject MeshAtlas { get { return meshAtlas; } }
 
     public RoomData(int xCoord, int zCoord)
     {
@@ -37,23 +40,26 @@ public class RoomData
         return false;
     }
 
-    public bool OccupyRoom(GameObject gameObject, exRoom roomType, float roomSpacing, float floorX, float floorZ)
+    public bool OccupyRoom(GameObject gameObject, GameObject roomAtlas, exRoom roomType, float roomSpacing, float floorX, float floorZ)
     {
         this.roomType = roomType;
         occupied = true;
         weight = 0;
         roomObject = GameObject.Instantiate(gameObject, new Vector3(((float)gridCoordinate.x * roomSpacing) - (floorX / 2f), 0f, (float)gridCoordinate.y * roomSpacing - (floorZ / 2f)), Quaternion.identity);
+        meshAtlas = roomAtlas;
         UpdateNeighbors();
 
 
         return false;
     }
 
-    public bool SwapRoom(GameObject newGameObject, exRoom roomType)
+    public bool SwapRoom(GameObject newGameObject, GameObject roomAtlas, exRoom roomType)
     {
+        meshAtlas = roomAtlas;
+
         GameObject temp = roomObject;
         roomObject = GameObject.Instantiate(newGameObject, temp.transform.position, temp.transform.rotation);
-        GameObject.Destroy(temp);
+        GameObject.DestroyImmediate(temp);
         return false;
     }
 
@@ -112,6 +118,11 @@ public class RoomData
     public int GetNumOccupiedNeighbors()
     {
         return neighbors.GetNumberOfOccupiedNeighbors();
+    }
+
+    public void ClearRoom()
+    {
+        GameObject.DestroyImmediate(roomObject);
     }
 
     public void FinalizeRoom()

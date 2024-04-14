@@ -1,26 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TileChanger : MonoBehaviour
 {
 
     private MeshFilter _tileMesh;
-    private MeshCollider _tileCollider;
     [SerializeField]
-    private Mesh alternateTile;
-
+    public Mesh alternateTile;
     [SerializeField]
-    private Direction direction;
+    public Direction direction;
+    [SerializeField]
+    public Vector3 newRotation;
 
-    public Direction Direction {  get { return direction; } }
 
     private void Awake()
     {
-        _tileMesh = GetComponent<MeshFilter>();
-        _tileCollider = GetComponent<MeshCollider>();
+        
         if(direction == Direction.None)
         {
+            _tileMesh = GetComponent<MeshFilter>();
             SwapToAlternate();
         }
     }
@@ -28,10 +25,16 @@ public class TileChanger : MonoBehaviour
 
     public void SwapToAlternate()
     {
+        _tileMesh = GetComponent<MeshFilter>();
+
         if (alternateTile != null)
         {
             _tileMesh.mesh = alternateTile;
-            _tileCollider.sharedMesh = alternateTile;
+            transform.eulerAngles += newRotation;
+        }
+        else
+        {
+            DestroyImmediate(gameObject);
         }
     }
 }
