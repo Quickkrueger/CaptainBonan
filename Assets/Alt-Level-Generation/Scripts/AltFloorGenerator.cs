@@ -1,8 +1,9 @@
 using UnityEngine;
 using Unity.AI.Navigation;
 using System.Collections;
+#if UNITY_EDITOR
 using Unity.EditorCoroutines.Editor;
-
+#endif
 public class AltFloorGenerator : MonoBehaviour
 {
     public Vector2Int floorGridSize;
@@ -40,6 +41,7 @@ public class AltFloorGenerator : MonoBehaviour
         GenerateFloor();
     }
 
+#if UNITY_EDITOR
     public void GenerateFloorEditor()
     {
         Clear();
@@ -81,7 +83,7 @@ public class AltFloorGenerator : MonoBehaviour
             }
         }
     }
-
+#endif
 
     private void GenerateFloor()
     {
