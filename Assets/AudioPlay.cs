@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class AudioPlay : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public AudioSource _audioSource;
 
-    // Update is called once per frame
-    void Update()
+    public AudioClip[] audioClips;
+
+    public void PlayAudio(string clipName)
     {
-        
+        for (int i = 0; i < audioClips.Length; i++)
+        {
+            if (audioClips[i].name.Contains(clipName))
+            {
+                _audioSource.clip = audioClips[i];
+                _audioSource.Play();
+                break;
+            }
+        }
     }
 }
